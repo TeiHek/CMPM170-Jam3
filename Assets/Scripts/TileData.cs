@@ -7,5 +7,10 @@ using UnityEngine.Tilemaps;
 public class TileData : ScriptableObject
 {
     public List<TileBase> tiles;
-    public int moveCost;
+    [SerializeField] private int moveCost;
+
+    public int GetMoveCost()
+    {
+        return moveCost;
+    }
 }

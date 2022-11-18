@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 public class MapManager : MonoBehaviour
 {
     [Header("Map Data")]
+    public Grid grid;
     [SerializeField] private Tilemap worldMap;
     [SerializeField] private Tilemap interactiveMap;
     [SerializeField] private Tile hoverTile;
@@ -14,7 +15,12 @@ public class MapManager : MonoBehaviour
     [SerializeField] private List<TileData> tileDataList;
     private Dictionary<TileBase, TileData> tileData;
 
+    // Interactive Layer
     private Vector3Int prevMousePos = new Vector3Int();
+    private Vector3Int lastMousePosInBounds = new Vector3Int();
+
+    // Unit tracking
+    private Dictionary<BaseUnit, Vector3Int> units;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +30,7 @@ public class MapManager : MonoBehaviour
 
     private void Awake()
     {
+        units = new Dictionary<BaseUnit, Vector3Int>();
         tileData = new Dictionary<TileBase, TileData>();
         foreach(TileData TD in tileDataList)
         {
@@ -38,25 +45,46 @@ public class MapManager : MonoBehaviour
     void Update()
     {
         Vector3Int mouseGridPos = GetMousePosition();
-        if(!mouseGridPos.Equals(prevMousePos))
+        if (worldMap.HasTile(mouseGridPos))
         {
-            interactiveMap.SetTile(prevMousePos, null);
-            interactiveMap.SetTile(mouseGridPos, hoverTile);
-            prevMousePos = mouseGridPos;
+            if (!mouseGridPos.Equals(prevMousePos))
+            {
+                interactiveMap.SetTile(prevMousePos, null);
+                interactiveMap.SetTile(mouseGridPos, hoverTile);
+                prevMousePos = mouseGridPos;
+                lastMousePosInBounds = mouseGridPos;
+            }
+        }
+        else
+        {
+            interactiveMap.SetTile(lastMousePosInBounds, null);
         }
 
         // Test block
         if (Input.GetMouseButtonDown(0))
         {
-            TileBase clickedTile = worldMap.GetTile(mouseGridPos);
-            print("Position" + mouseGridPos + ", Move Cost:" + tileData[clickedTile].moveCost);
+            if (worldMap.HasTile(mouseGridPos))
+            {
+                TileBase clickedTile = worldMap.GetTile(mouseGridPos);
+                print("Position" + mouseGridPos + ", Move Cost:" + tileData[clickedTile].GetMoveCost() + ", Has unit: " + units.ContainsValue(mouseGridPos));
+            }
         }
 
     }
 
-    Vector3Int GetMousePosition()
+    private Vector3Int GetMousePosition()
     {
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         return worldMap.WorldToCell(mouseWorldPosition);
+    }
+
+    public void AddUnit(BaseUnit unit, Vector3Int pos)
+    {
+        units.Add(unit, pos);
+    }
+
+    public bool InBounds(Vector3Int pos)
+    {
+        return worldMap.HasTile(pos);
     }
 }
