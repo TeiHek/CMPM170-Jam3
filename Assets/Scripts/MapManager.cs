@@ -9,13 +9,16 @@ public class MapManager : MonoBehaviour
     public Grid grid;
     [SerializeField] private Tilemap worldMap;
     [SerializeField] private Tilemap interactiveMap;
+    [SerializeField] private Tilemap pathMap;
     [SerializeField] private Tile hoverTile;
+    [SerializeField] private RuleTile pathTile;
 
     [Header("Tile Data")]
     [SerializeField] private List<TileData> tileDataList;
     private Dictionary<TileBase, TileData> tileData;
 
     // Interactive Layer
+    private Vector3Int mouseGridPos = new Vector3Int();
     private Vector3Int prevMousePos = new Vector3Int();
     private Vector3Int lastMousePosInBounds = new Vector3Int();
 
@@ -44,7 +47,8 @@ public class MapManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3Int mouseGridPos = GetMousePosition();
+        mouseGridPos = GetMousePosition();
+        
         if (worldMap.HasTile(mouseGridPos))
         {
             if (!mouseGridPos.Equals(prevMousePos))
@@ -53,6 +57,12 @@ public class MapManager : MonoBehaviour
                 interactiveMap.SetTile(mouseGridPos, hoverTile);
                 prevMousePos = mouseGridPos;
                 lastMousePosInBounds = mouseGridPos;
+                pathMap.ClearAllTiles();
+            }
+            List<Vector3Int> path = GameManager.Instance.PathFinder.FindPath(Vector3Int.zero, mouseGridPos);
+            foreach (Vector3Int step in path)
+            {
+                pathMap.SetTile(step, pathTile);
             }
         }
         else
@@ -60,15 +70,6 @@ public class MapManager : MonoBehaviour
             interactiveMap.SetTile(lastMousePosInBounds, null);
         }
 
-        // Test block
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (worldMap.HasTile(mouseGridPos))
-            {
-                TileBase clickedTile = worldMap.GetTile(mouseGridPos);
-                print("Position" + mouseGridPos + ", Move Cost:" + tileData[clickedTile].GetMoveCost() + ", Has unit: " + units.ContainsValue(mouseGridPos));
-            }
-        }
 
     }
 
@@ -86,5 +87,21 @@ public class MapManager : MonoBehaviour
     public bool InBounds(Vector3Int pos)
     {
         return worldMap.HasTile(pos);
+    }
+
+    public void DebugClick()
+    {
+        // Test block
+        if (worldMap.HasTile(mouseGridPos))
+        {
+            TileBase clickedTile = worldMap.GetTile(mouseGridPos);
+            print("Position" + mouseGridPos + ", Move Cost:" + tileData[clickedTile].GetMoveCost() + ", Has unit: " + units.ContainsValue(mouseGridPos));
+        }
+    }
+
+    public int GetMoveCost(Vector3Int pos)
+    {
+        TileBase tile = worldMap.GetTile(pos);
+        return tileData[tile].GetMoveCost();
     }
 }

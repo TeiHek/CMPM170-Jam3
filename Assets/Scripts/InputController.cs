@@ -57,4 +57,18 @@ public class InputController : MonoBehaviour
     }
 
     // Click dependent on game state
+    public void LeftClick(InputAction.CallbackContext context)
+    {
+        if (!context.started)
+        {
+            return;
+        }
+
+        TryLeftClick();
+    }
+
+    private void TryLeftClick()
+    {
+        GameManager.Instance.MapManager.DebugClick();
+    }
 }

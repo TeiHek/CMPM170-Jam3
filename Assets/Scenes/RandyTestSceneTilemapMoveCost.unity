@@ -561,8 +561,8 @@ Tilemap:
   - first: {x: -1, y: -5, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
+      m_TileIndex: 2
+      m_TileSpriteIndex: 2
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -741,8 +741,8 @@ Tilemap:
   - first: {x: -3, y: -4, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
+      m_TileIndex: 2
+      m_TileSpriteIndex: 2
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -761,8 +761,8 @@ Tilemap:
   - first: {x: -1, y: -4, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
+      m_TileIndex: 2
+      m_TileSpriteIndex: 2
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -941,8 +941,8 @@ Tilemap:
   - first: {x: -3, y: -3, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
+      m_TileIndex: 2
+      m_TileSpriteIndex: 2
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -961,8 +961,8 @@ Tilemap:
   - first: {x: -1, y: -3, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
+      m_TileIndex: 2
+      m_TileSpriteIndex: 2
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1341,8 +1341,8 @@ Tilemap:
   - first: {x: -3, y: -1, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2070,23 +2070,33 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 100
+  - m_RefCount: 96
     m_Data: {fileID: 11400000, guid: bee3727b9196fda44b5fe1d463af8716, type: 2}
   - m_RefCount: 41
     m_Data: {fileID: 11400000, guid: d1f2a1f459bfc8147bcaa453e8150b51, type: 2}
-  - m_RefCount: 10
+  - m_RefCount: 14
     m_Data: {fileID: 11400000, guid: 52eb44896aa6678459fb160b07ce0017, type: 2}
   - m_RefCount: 9
     m_Data: {fileID: 11400000, guid: 1b1e97f606dcf6f41b2d2f3ff9e4e9d2, type: 2}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileSpriteArray:
-  - m_RefCount: 100
+  - m_RefCount: 96
     m_Data: {fileID: -174478358, guid: 92e2a7be8b409bd419933dc5a109c941, type: 3}
   - m_RefCount: 41
     m_Data: {fileID: -1612416935, guid: 92e2a7be8b409bd419933dc5a109c941, type: 3}
-  - m_RefCount: 10
+  - m_RefCount: 14
     m_Data: {fileID: 1182766517, guid: 92e2a7be8b409bd419933dc5a109c941, type: 3}
   - m_RefCount: 9
     m_Data: {fileID: 1823955298, guid: 92e2a7be8b409bd419933dc5a109c941, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileMatrixArray:
   - m_RefCount: 160
     m_Data:
@@ -2106,6 +2116,60 @@ Tilemap:
       e31: 0
       e32: 0
       e33: 1
+  - m_RefCount: 0
+    m_Data:
+      e00: 1e-45
+      e01: 0
+      e02: -3.8750038
+      e03: -3.8750038
+      e10: 0
+      e11: 0
+      e12: 7.74e-43
+      e13: 7.74e-43
+      e20: -2.1528482e+18
+      e21: 1e-45
+      e22: 6.224726e-29
+      e23: 8.786821e+9
+      e30: 4.5904e-41
+      e31: 0
+      e32: 7.75e-43
+      e33: 7.78e-43
+  - m_RefCount: 0
+    m_Data:
+      e00: 0
+      e01: 0
+      e02: -3.8750038
+      e03: -3.8750038
+      e10: 0
+      e11: 0
+      e12: 7.74e-43
+      e13: 7.74e-43
+      e20: -2.1528482e+18
+      e21: 1e-45
+      e22: 6.433362e-29
+      e23: 8.786821e+9
+      e30: 4.5904e-41
+      e31: 0
+      e32: 7.75e-43
+      e33: 7.78e-43
+  - m_RefCount: 0
+    m_Data:
+      e00: 0
+      e01: 0
+      e02: 0
+      e03: 488830.5
+      e10: 0
+      e11: 0
+      e12: 0
+      e13: 6.6e-44
+      e20: 0
+      e21: 0
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 0
   m_TileColorArray:
   - m_RefCount: 160
     m_Data: {r: 1, g: 1, b: 1, a: 1}
@@ -2113,7 +2177,7 @@ Tilemap:
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -10, y: -5, z: 0}
-  m_Size: {x: 20, y: 8, z: 1}
+  m_Size: {x: 27, y: 8, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -2377,7 +2441,19 @@ MonoBehaviour:
     m_ActionId: 043d4c2a-d471-41b9-b60d-89eb1e22d62d
     m_ActionName: Map Control/MoveMap[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 129660400}
+        m_TargetAssemblyTypeName: InputController, Assembly-CSharp
+        m_MethodName: LeftClick
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 18a6e878-afd2-4869-b6ee-d46c829de4c3
     m_ActionName: Map Control/Interact[/Mouse/leftButton]
   - m_PersistentCalls:
@@ -2415,7 +2491,7 @@ GameObject:
   - component: {fileID: 1470172791}
   - component: {fileID: 1470172790}
   m_Layer: 0
-  m_Name: UnitTiles
+  m_Name: PathTiles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2474,8 +2550,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1658870979
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -2570,7 +2646,9 @@ MonoBehaviour:
   grid: {fileID: 1028881418}
   worldMap: {fileID: 1014989237}
   interactiveMap: {fileID: 1241261733}
+  pathMap: {fileID: 1470172791}
   hoverTile: {fileID: 11400000, guid: 7ccfa6d3d8bf2bb49840201a4ba67959, type: 2}
+  pathTile: {fileID: 11400000, guid: 9f9b634e57ac18948ab2d23bd7b3bd0c, type: 2}
   tileDataList:
   - {fileID: 11400000, guid: f16e3216e1f1b1e42b7d2770f1003f67, type: 2}
   - {fileID: 11400000, guid: d637279d8871f0040a04e3270fb7d101, type: 2}

@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     // This will eventually become the script to track game state. Don't have that yet though
-
+    [Header("Assigned at runtime")]
     public MapManager MapManager;
     public InputController Controller;
     public PathFinder PathFinder;
@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
         }
         MapManager = GetComponentInChildren<MapManager>();
         Controller = GetComponentInChildren<InputController>();
+        PathFinder = new PathFinder();
     }
     // Start is called before the first frame update
     void Start()
