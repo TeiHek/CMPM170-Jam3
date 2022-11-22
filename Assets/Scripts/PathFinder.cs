@@ -29,12 +29,12 @@ public class PathFinder
         }
     }
     
-    public List<Vector3Int> FindPath(Vector3Int start, Vector3Int end)
+    public List<Vector3Int> FindPath(Vector3Int start, Vector3Int end, BaseUnit unit)
     {
         // Create List for path to draw
         List<Vector3Int> path = new List<Vector3Int>();
-        // Return case: Mouse is out of bounds/ end is out of bounds
-        if(!GameManager.Instance.MapManager.InBounds(end))
+        // Return case: Mouse is out of bounds/ end is out of bounds / Tile is occupied by allied unit
+        if(!GameManager.Instance.MapManager.IsInBounds(end) || !GameManager.Instance.MapManager.IsNavigable(end) || GameManager.Instance.MapManager.IsAlliedUnit(end))
         {
             return path;
         }
@@ -59,7 +59,7 @@ public class PathFinder
                 return GetFinalPath(start, end, explored);
             }
 
-            List<Vector3Int> neighboringTiles = GetNeighboringTiles(currentTile);
+            List<Vector3Int> neighboringTiles = GetNeighboringTiles(currentTile, unit);
             foreach(Vector3Int neighbor in neighboringTiles)
             {
                 int newCost = explored[currentTile].totalCost + GameManager.Instance.MapManager.GetMoveCost(neighbor);
@@ -83,26 +83,30 @@ public class PathFinder
         return path;
     }
 
-    private List<Vector3Int> GetNeighboringTiles(Vector3Int current)
+    private List<Vector3Int> GetNeighboringTiles(Vector3Int current, BaseUnit unit)
     {
         List<Vector3Int> neighbors = new List<Vector3Int>();
         // Check Up
-        if (GameManager.Instance.MapManager.InBounds(current + Vector3Int.up))
+        if (GameManager.Instance.MapManager.IsInBounds(current + Vector3Int.up) && GameManager.Instance.MapManager.IsNavigable(current + Vector3Int.up) && (
+            GameManager.Instance.MapManager.GetUnitAt(current + Vector3Int.up) == null || GameManager.Instance.MapManager.GetUnitAt(current + Vector3Int.up).GetType() != unit.GetType()))
         {
             neighbors.Add(current + Vector3Int.up);
         }
         // Check Down
-        if(GameManager.Instance.MapManager.InBounds(current + Vector3Int.down))
+        if (GameManager.Instance.MapManager.IsInBounds(current + Vector3Int.down) && GameManager.Instance.MapManager.IsNavigable(current + Vector3Int.down) && (
+            GameManager.Instance.MapManager.GetUnitAt(current + Vector3Int.down) == null || GameManager.Instance.MapManager.GetUnitAt(current + Vector3Int.down).GetType() != unit.GetType()))
         {
             neighbors.Add(current + Vector3Int.down);
         }
         // Check Left
-        if(GameManager.Instance.MapManager.InBounds(current + Vector3Int.left))
+        if (GameManager.Instance.MapManager.IsInBounds(current + Vector3Int.left) && GameManager.Instance.MapManager.IsNavigable(current + Vector3Int.left) && (
+            GameManager.Instance.MapManager.GetUnitAt(current + Vector3Int.left) == null || GameManager.Instance.MapManager.GetUnitAt(current + Vector3Int.left).GetType() != unit.GetType()))
         {
             neighbors.Add(current + Vector3Int.left);
         }
         // Check Right
-        if(GameManager.Instance.MapManager.InBounds(current + Vector3Int.right))
+        if (GameManager.Instance.MapManager.IsInBounds(current + Vector3Int.right) && GameManager.Instance.MapManager.IsNavigable(current + Vector3Int.right) && (
+            GameManager.Instance.MapManager.GetUnitAt(current + Vector3Int.right) == null || GameManager.Instance.MapManager.GetUnitAt(current + Vector3Int.right).GetType() != unit.GetType()))
         {
             neighbors.Add(current + Vector3Int.right);
         }
