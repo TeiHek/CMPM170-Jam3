@@ -9,6 +9,7 @@ public class MapManager : MonoBehaviour
     [SerializeField] private Tilemap worldMap;
     [SerializeField] private Tilemap interactiveMap;
     [SerializeField] private Tile hoverTile;
+    [SerializeField] private Tile playerTile;
 
     [Header("Tile Data")]
     [SerializeField] private List<TileData> tileDataList;
@@ -58,5 +59,10 @@ public class MapManager : MonoBehaviour
     {
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         return worldMap.WorldToCell(mouseWorldPosition);
+    }
+
+    void addPlayer()
+    {
+
     }
 }
