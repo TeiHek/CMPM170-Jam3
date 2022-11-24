@@ -8,12 +8,14 @@ public class Flamethrower : MonoBehaviour
     public VisualEffect ft;
     public VisualEffect health;
     public VisualEffect thunder;
+    public VisualEffect magic;
     // Start is called before the first frame update
     void Start()
     {
         ft.Stop();
         health.Stop();
         thunder.Stop();
+        magic.Stop();
     }
 
     // Update is called once per frame
@@ -47,6 +49,16 @@ public class Flamethrower : MonoBehaviour
         if (Input.GetKeyUp("3"))
         {
             thunder.Stop();
+        }
+
+        // magic
+        if (Input.GetKeyDown("4"))
+        {
+            magic.Play();
+        }
+        if (Input.GetKeyUp("4"))
+        {
+            magic.Stop();
         }
     }
 }
