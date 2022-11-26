@@ -90,7 +90,7 @@ public class InputController : MonoBehaviour
                 }
 
                 // Click on another unit after first selection or tile unit cannot navigate to
-                if(GameManager.Instance.MapManager.IsAlliedUnit(pos) || !GameManager.Instance.MapManager.IsNavigable(pos) )
+                if(GameManager.Instance.MapManager.IsAllyUnit(pos) || !GameManager.Instance.MapManager.IsNavigable(pos) )
                 {
                     print("Deselect");
                     // Deselect Unit
@@ -109,7 +109,7 @@ public class InputController : MonoBehaviour
             }
             print("hi");
             // Check if allied unit and has not acted yet
-            if(GameManager.Instance.MapManager.IsAlliedUnit(pos) && GameManager.Instance.MapManager.GetUnitAt(pos).ableToAct)
+            if(GameManager.Instance.MapManager.IsAllyUnit(pos) && GameManager.Instance.MapManager.GetUnitAt(pos).ableToAct)
             {
                 print("Selected");
                 GameManager.Instance.MapManager.SelectUnit(pos);

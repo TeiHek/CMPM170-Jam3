@@ -26,7 +26,8 @@ public class MapManager : MonoBehaviour
     private Vector3Int lastMousePosInBounds = new Vector3Int();
 
     // Unit tracking
-    private Dictionary<Vector3Int, BaseUnit> units;
+    private Dictionary<Vector3Int, BaseUnit> allyUnits;
+    private Dictionary<Vector3Int, BaseUnit> enemyUnits;
     private BaseUnit selectedUnit;
     private Vector3Int selectedUnitPos;
 
@@ -38,7 +39,8 @@ public class MapManager : MonoBehaviour
 
     private void Awake()
     {
-        units = new Dictionary<Vector3Int, BaseUnit>();
+        allyUnits = new Dictionary<Vector3Int, BaseUnit>();
+        enemyUnits = new Dictionary<Vector3Int, BaseUnit>();
         tileData = new Dictionary<TileBase, TileData>();
         foreach(TileData TD in tileDataList)
         {
@@ -96,24 +98,9 @@ public class MapManager : MonoBehaviour
         return worldMap.WorldToCell(mouseWorldPosition);
     }
 
-    public void AddUnit(Vector3Int pos, BaseUnit unit)
-    {
-        units.Add(pos, unit);
-    }
-
     public bool IsInBounds(Vector3Int pos)
     {
         return worldMap.HasTile(pos);
-    }
-
-    public void DebugClick()
-    {
-        // Test block
-        if (worldMap.HasTile(mouseGridPos))
-        {
-            TileBase clickedTile = worldMap.GetTile(mouseGridPos);
-            print("Position" + mouseGridPos + ", Move Cost:" + tileData[clickedTile].GetMoveCost() + ", Has unit: " + IsAlliedUnit(mouseGridPos));
-        }
     }
 
     // Get the move cost for a tile at a given position
@@ -129,35 +116,89 @@ public class MapManager : MonoBehaviour
         TileBase tile = worldMap.GetTile(pos);
         return tileData[tile].IsNavigable();
     }
-
-    public bool IsAlliedUnit(Vector3Int pos)
+    #region Adding/Removing/Updating Units
+    public void AddAllyUnit(Vector3Int pos, BaseUnit unit)
     {
-        if (!units.ContainsKey(pos)) return false;
-        return units[pos].GetType() == typeof(ControllableUnit);
+        allyUnits.Add(pos, unit);
+    }
+
+    public void AddEnemyUnit(Vector3Int pos, BaseUnit unit)
+    {
+        enemyUnits.Add(pos, unit);
+    }
+
+    public void removeUnit(Vector3Int pos)
+    {
+        if (allyUnits.ContainsKey(pos))
+        {
+            allyUnits.Remove(pos);
+        }
+        else if (enemyUnits.ContainsKey(pos))
+        {
+            enemyUnits.Remove(pos);
+        }
+        // Should not remove nothing, debug line
+        else print("No unit to remove");
+    }
+
+    public void UpdateUnitLocation(BaseUnit unit, Vector3Int prevPos, Vector3Int newPos)
+    {
+        if (allyUnits.ContainsKey(prevPos))
+        {
+            allyUnits.Remove(prevPos);
+            allyUnits.Add(newPos, unit);
+        }
+        else if (enemyUnits.ContainsKey(prevPos))
+        {
+            enemyUnits.Remove(prevPos);
+            enemyUnits.Add(newPos, unit);
+        }
+        else print("No unit to update");
+    }
+    #endregion
+    #region Unit Checking
+    public bool IsUnit(Vector3Int pos)
+    {
+        return allyUnits.ContainsKey(pos) || enemyUnits.ContainsKey(pos);
+    }
+    public bool IsAllyUnit(Vector3Int pos)
+    {
+        return allyUnits.ContainsKey(pos);
+    }
+
+    public bool IsEnemyUnit(Vector3Int pos)
+    {
+        return enemyUnits.ContainsKey(pos);
     }
 
     public BaseUnit GetSelectedUnit()
     {
         return selectedUnit;
     }
-
-    // Overload for unit at position
+    #endregion
+    #region Unit Info
     public BaseUnit GetUnitAt(Vector3Int pos)
     {
-        if (!units.ContainsKey(pos))
+        if(allyUnits.ContainsKey(pos))
         {
-            return null;
+            return allyUnits[pos];
         }
-        return units[pos];
+        else if (enemyUnits.ContainsKey(pos))
+        {
+            return enemyUnits[pos];
+        }
+        // No unit found
+        return null;
     }
-
+    #endregion
+    #region Unit Controls
     public void SelectUnit(Vector3Int pos)
     {
-        if (!units.ContainsKey(pos))
+        if (!IsUnit(pos))
         {
             return;
         }
-        selectedUnit = units[pos];
+        selectedUnit = GetUnitAt(pos);
         selectedUnitPos = pos;
     }
 
@@ -171,11 +212,21 @@ public class MapManager : MonoBehaviour
         BaseUnit unit = selectedUnit;
         DeselectUnit();
         List<Vector3Int> travelPath = GameManager.Instance.PathFinder.FindPath(selectedUnitPos, pos, unit);
-        if(travelPath.Count > unit.GetMoveRange())
+        if(travelPath.Count-1 > unit.GetMoveRange())
         {
             return;
         }
-        units.Remove(selectedUnitPos);
         StartCoroutine(unit.MovePosition(travelPath));
+    }
+    #endregion
+
+    public void DebugClick()
+    {
+        // Test block
+        if (worldMap.HasTile(mouseGridPos))
+        {
+            TileBase clickedTile = worldMap.GetTile(mouseGridPos);
+            print("Position" + mouseGridPos + ", Move Cost:" + tileData[clickedTile].GetMoveCost() + ", Has unit: " + IsAllyUnit(mouseGridPos));
+        }
     }
 }

@@ -34,7 +34,7 @@ public class PathFinder
         // Create List for path to draw
         List<Vector3Int> path = new List<Vector3Int>();
         // Return case: Mouse is out of bounds/ end is out of bounds / Tile is occupied by allied unit
-        if(!GameManager.Instance.MapManager.IsInBounds(end) || !GameManager.Instance.MapManager.IsNavigable(end) || GameManager.Instance.MapManager.IsAlliedUnit(end))
+        if(!GameManager.Instance.MapManager.IsInBounds(end) || !GameManager.Instance.MapManager.IsNavigable(end) || GameManager.Instance.MapManager.IsAllyUnit(end))
         {
             return path;
         }

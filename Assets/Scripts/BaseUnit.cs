@@ -23,15 +23,22 @@ public abstract class BaseUnit : MonoBehaviour
         
     }
 
+    public virtual void AddUnit()
+    {
+
+    }
+
     public int GetMoveRange()
     {
         return moveRange;
     }
+
     public IEnumerator MovePosition(List<Vector3Int> path)
     {
         float step = 4 * Time.deltaTime;
         GameState prevState = GameManager.Instance.state;
         GameManager.Instance.state = GameState.UnitInTransit;
+        Vector3Int prevPos = GetTile();
         while (path.Count > 0)
         {
             Vector3 midTile = GameManager.Instance.MapManager.grid.CellToWorld(path[0]) + GameManager.Instance.MapManager.grid.cellSize / 2;
@@ -43,25 +50,36 @@ public abstract class BaseUnit : MonoBehaviour
             }
             yield return null;
         }
-        AddLocation();
         yield return new WaitForSeconds(0.05f);
         GameManager.Instance.state = prevState;
+        UpdateLocation(prevPos, GetTile());
     }
 
-    private Vector3Int GetNearestTile()
+    public void ReceiveDamage(int damage)
     {
-        // Snap the unit to the closest tile and update the tiledata
+        hp -= damage;
+        if(hp <= 0)
+        {
+            // Remove and destroy the GameObject if it dies
+            GameManager.Instance.MapManager.removeUnit(GetTile());
+            Destroy(gameObject);
+        }
+    }
+
+    protected Vector3Int GetTile()
+    {
+        // Get the cell position based on GameObject position
         return GameManager.Instance.MapManager.grid.WorldToCell(transform.position);
     }
 
     protected void SnapToGrid()
     {
-        transform.position = GameManager.Instance.MapManager.grid.CellToWorld(GetNearestTile()) + GameManager.Instance.MapManager.grid.cellSize / 2;
+        transform.position = GameManager.Instance.MapManager.grid.CellToWorld(GetTile()) + GameManager.Instance.MapManager.grid.cellSize / 2;
     }
 
-    protected void AddLocation()
+    public void UpdateLocation(Vector3Int prevPos, Vector3Int newPos)
     {
-        GameManager.Instance.MapManager.AddUnit(GetNearestTile(), this);
+        GameManager.Instance.MapManager.UpdateUnitLocation(this, prevPos, newPos);
     }
 
 }

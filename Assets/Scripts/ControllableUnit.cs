@@ -8,12 +8,17 @@ public class ControllableUnit : BaseUnit
     public override void Start()
     {
         SnapToGrid();
-        AddLocation();
+        AddUnit();
     }
 
     // Update is called once per frame
     public override void Update()
     {
         
+    }
+
+    public override void AddUnit()
+    {
+        GameManager.Instance.MapManager.AddAllyUnit(GetTile(), this);
     }
 }

@@ -26,7 +26,7 @@ public class RangeFinder
             foreach (Vector3Int neighbor in neighboringTiles)
             {
                 int newCost = explored[currentTile] + GameManager.Instance.MapManager.GetMoveCost(neighbor);
-                if (!explored.ContainsKey(neighbor) && newCost < maxRange)
+                if (!explored.ContainsKey(neighbor) && newCost < maxRange+1)
                 {
                     frontier.Add(neighbor);
                     explored.Add(neighbor, newCost);
