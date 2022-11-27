@@ -190,6 +190,12 @@ public class MapManager : MonoBehaviour
         // No unit found
         return null;
     }
+
+    public Dictionary<Vector3Int, BaseUnit> GetEnemyUnits()
+    {
+        return enemyUnits;
+    }
+
     #endregion
     #region Unit Controls
     public void SelectUnit(Vector3Int pos)
@@ -226,7 +232,7 @@ public class MapManager : MonoBehaviour
         if (worldMap.HasTile(mouseGridPos))
         {
             TileBase clickedTile = worldMap.GetTile(mouseGridPos);
-            print("Position" + mouseGridPos + ", Move Cost:" + tileData[clickedTile].GetMoveCost() + ", Has unit: " + IsAllyUnit(mouseGridPos));
+            print("Position" + mouseGridPos + ", Move Cost:" + tileData[clickedTile].GetMoveCost() + ", Has unit: " + IsUnit(mouseGridPos) + "Unit: " + GetUnitAt(mouseGridPos));
         }
     }
 }

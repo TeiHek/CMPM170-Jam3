@@ -28,11 +28,12 @@ public class GameManager : MonoBehaviour
         Controller = GetComponentInChildren<InputController>();
         PathFinder = new PathFinder();
         rangeFinder = new RangeFinder();
+        state = GameState.PlayerTurn;
     }
     // Start is called before the first frame update
     void Start()
     {
-        state = GameState.PlayerTurn;
+        
     }
 
     // Update is called once per frame

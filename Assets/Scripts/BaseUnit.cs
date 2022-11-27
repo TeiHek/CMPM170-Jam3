@@ -66,7 +66,7 @@ public abstract class BaseUnit : MonoBehaviour
         }
     }
 
-    protected Vector3Int GetTile()
+    public Vector3Int GetTile()
     {
         // Get the cell position based on GameObject position
         return GameManager.Instance.MapManager.grid.WorldToCell(transform.position);

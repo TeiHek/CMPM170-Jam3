@@ -41,25 +41,25 @@ public class RangeFinder
         List<Vector3Int> neighbors = new List<Vector3Int>();
         // Check Up
         if (GameManager.Instance.MapManager.IsInBounds(current + Vector3Int.up) && GameManager.Instance.MapManager.IsNavigable(current + Vector3Int.up) && (
-            GameManager.Instance.MapManager.GetUnitAt(current + Vector3Int.up) == null || GameManager.Instance.MapManager.GetUnitAt(current + Vector3Int.up).GetType() != unit.GetType()))
+            GameManager.Instance.MapManager.GetUnitAt(current + Vector3Int.up) == null || GameManager.Instance.MapManager.GetUnitAt(current + Vector3Int.up).GetType() == unit.GetType()))
         {
             neighbors.Add(current + Vector3Int.up);
         }
         // Check Down
         if (GameManager.Instance.MapManager.IsInBounds(current + Vector3Int.down) && GameManager.Instance.MapManager.IsNavigable(current + Vector3Int.down) && (
-            GameManager.Instance.MapManager.GetUnitAt(current + Vector3Int.down) == null || GameManager.Instance.MapManager.GetUnitAt(current + Vector3Int.down).GetType() != unit.GetType()))
+            GameManager.Instance.MapManager.GetUnitAt(current + Vector3Int.down) == null || GameManager.Instance.MapManager.GetUnitAt(current + Vector3Int.down).GetType() == unit.GetType()))
         {
             neighbors.Add(current + Vector3Int.down);
         }
         // Check Left
         if (GameManager.Instance.MapManager.IsInBounds(current + Vector3Int.left) && GameManager.Instance.MapManager.IsNavigable(current + Vector3Int.left) && (
-            GameManager.Instance.MapManager.GetUnitAt(current + Vector3Int.left) == null || GameManager.Instance.MapManager.GetUnitAt(current + Vector3Int.left).GetType() != unit.GetType()))
+            GameManager.Instance.MapManager.GetUnitAt(current + Vector3Int.left) == null || GameManager.Instance.MapManager.GetUnitAt(current + Vector3Int.left).GetType() == unit.GetType()))
         {
             neighbors.Add(current + Vector3Int.left);
         }
         // Check Right
         if (GameManager.Instance.MapManager.IsInBounds(current + Vector3Int.right) && GameManager.Instance.MapManager.IsNavigable(current + Vector3Int.right) && (
-            GameManager.Instance.MapManager.GetUnitAt(current + Vector3Int.right) == null || GameManager.Instance.MapManager.GetUnitAt(current + Vector3Int.right).GetType() != unit.GetType()))
+            GameManager.Instance.MapManager.GetUnitAt(current + Vector3Int.right) == null || GameManager.Instance.MapManager.GetUnitAt(current + Vector3Int.right).GetType() == unit.GetType()))
         {
             neighbors.Add(current + Vector3Int.right);
         }
