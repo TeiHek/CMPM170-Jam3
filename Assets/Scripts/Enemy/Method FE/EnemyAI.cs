@@ -4,29 +4,34 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    // Ideally you would get the reference by getting it from MapManager.enemyUnits
-    /* example:
-     * foreach(BaseUnit enemy in GetEnemyUnits().Values)
-     * {
-     *   // Do something...
-     * }
-     */
-
-    // There is no point where I convert Row/Column (Vector2 or Vector2Int) into Vector3Int, but for reference
-    /*
-     * to convert from Vector2Int to Vector3Int, create a new Vector3Int and use the x and y components of the Vector2:
-     * Vector2Int test = new Vector2Int(2, 5);
-     *\// To convert,
-     * Vector3Int testButVec3 = new Vector3Int(test.x, test.y, 0);
-     */
-
-    // Using a test unit to have a reference to it for now.
+    
     public BaseUnit testUnit;
+    private Vector3 startPoint;
+    private Vector3 endPoint;
+    private GameObject desPoint;
+
+
+
+    private void Awake()
+    {
+        if( !(desPoint = GameObject.Find("Test Point")))
+        {
+            Debug.Log("Destination Point is not found");
+        }
+
+        endPoint = new Vector3(desPoint.transform.position.x, desPoint.transform.position.y, 0);
+    }
+
 
     // Start is called before the first frame update
     void Start()
     {
-       MoveUnit(testUnit, testUnit.GetTile(), new Vector3Int(-1, -2, 0) );
+        Debug.Log(Vector3Int.FloorToInt(endPoint));
+
+        MoveUnit(testUnit, testUnit.GetTile(), Vector3Int.FloorToInt(endPoint));
+       Debug.Log(GameManager.Instance.PathFinder.FindPath(testUnit.GetTile(), Vector3Int.FloorToInt(endPoint), testUnit).Count);
+
+
     }
 
     // Update is called once per frame
