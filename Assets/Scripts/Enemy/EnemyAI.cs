@@ -66,26 +66,6 @@ public class EnemyAI : MonoBehaviour
 
     }
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-
-
-   
-
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-
-
     //------------------------------------------------------------------------------
     //------------------------------ Functions -------------------------------------
     // in case u don't know my rules, but only functions will be called in Start/Awake/Update
@@ -100,7 +80,7 @@ public class EnemyAI : MonoBehaviour
         for(int i = 0; i < EnemyList.Count; i++)
         {
             UnitHeadToUnitAI(EnemyList[i].baseunit);
-            yield return new WaitForSeconds(waitTime);
+            yield return new WaitForSeconds(2f);
         }
     }
 

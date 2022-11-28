@@ -16,6 +16,11 @@ public class NewBehaviourScript : MonoBehaviour
         
     }
 
+    public bool movingEnd(BaseUnit movingUnit)
+    {
+        return true;
+        // return true once the moving is finished after calling MoveUnit(BaseUnit unit, Vector3Int start, Vector3Int end)
+    }
 
     public void enablePlayerControll(bool input)
     {
