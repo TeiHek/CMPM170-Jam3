@@ -232,7 +232,7 @@ public class MapManager : MonoBehaviour
         if (worldMap.HasTile(mouseGridPos))
         {
             TileBase clickedTile = worldMap.GetTile(mouseGridPos);
-            print("Position" + mouseGridPos + ", Move Cost:" + tileData[clickedTile].GetMoveCost() + ", Has unit: " + IsUnit(mouseGridPos) + "Unit: " + GetUnitAt(mouseGridPos));
+           // print("Position" + mouseGridPos + ", Move Cost:" + tileData[clickedTile].GetMoveCost() + ", Has unit: " + IsUnit(mouseGridPos) + "Unit: " + GetUnitAt(mouseGridPos));
         }
     }
 }

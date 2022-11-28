@@ -102,16 +102,16 @@ public class InputController : MonoBehaviour
                 if(GameManager.Instance.MapManager.GetUnitAt(pos) == null)
                 {
                     // Note: Bring up a menu before choosing to move.
-                    print("move");
+                    //print("move");
                     GameManager.Instance.MapManager.MoveSelectedUnit(pos);
                     return;
                 }
             }
-            print("hi");
+           // print("hi");
             // Check if allied unit and has not acted yet
             if(GameManager.Instance.MapManager.IsAllyUnit(pos) && GameManager.Instance.MapManager.GetUnitAt(pos).ableToAct)
             {
-                print("Selected");
+                //print("Selected");
                 GameManager.Instance.MapManager.SelectUnit(pos);
             }
         }
