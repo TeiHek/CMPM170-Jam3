@@ -26,7 +26,7 @@ public class EnemyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        MoveUnit(testUnit, testUnit.GetTile(), new Vector3Int(0, 0, 0) );
+       MoveUnit(testUnit, testUnit.GetTile(), new Vector3Int(-1, -2, 0) );
     }
 
     // Update is called once per frame
