@@ -1,46 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TurnControlButton : MonoBehaviour
 {
+    public Button button1;
+    public Button button2;
 
-
-
-    
-
-
-
-    // Start is called before the first frame update
     void Start()
     {
-        
+        button1.enabled = true;
+        button2.enabled = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void buttonFunction1()
     {
-        //做两个按钮 确保function只运行1次
-        //网上找点 按钮的Asset素材 然后做进去
-        //两个都放在右下角
-        //if button1Pressed(){
-        //    buttonFunction1();
-        //}
-        //if button2Pressed(){
-        //    buttonFunction2();
-        //}
+        //do something
+        button1.enabled = false;
     }
 
 
-    void buttonFunction1()
+    public void buttonFunction2()
     {
-        //leave it empty
-    }
-
-
-    void buttonFunction2()
-    {
-        //leave it empty
+        //dosomething
+        button2.enabled = false;
     }
 
 
