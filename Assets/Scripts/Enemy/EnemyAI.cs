@@ -285,14 +285,13 @@ public class EnemyAI : MonoBehaviour
     }
 
 
-
     //make unit head to the destination tile due to the movment range
     void UnitHeadToTile(BaseUnit unit, Vector3Int destination)
     {
         // assignPath to temp variable
         tempPath = new List<Vector3Int>(GameManager.Instance.PathFinder.FindPath(unit.GetTile(), destination, unit));
 
-        if (unit.moveRange >= tempPath.Count)
+        if (unit.moveRange > tempPath.Count)
         {
             //des is bigger than range
             if (tempPath.Count <= 0)
@@ -306,11 +305,30 @@ public class EnemyAI : MonoBehaviour
             }
 
         }
-        else if (unit.moveRange < tempPath.Count && unit.moveRange > 0)
+        else if (unit.moveRange <= tempPath.Count && unit.moveRange > 0)
         {
             //des is smaller than range
-            destination = tempPath[unit.moveRange];
-            MoveUnit(unit, unit.GetTile(), destination);
+
+            if(unit.moveRange == tempPath.Count)
+            {
+                destination = tempPath[unit.moveRange - 1];
+            }
+            else
+            {
+                destination = tempPath[unit.moveRange];
+            }
+            
+
+            if (isTileHavingUnit(destination) == false)
+            {
+                MoveUnit(unit, unit.GetTile(), destination);
+            }
+            else
+            {
+                destination = tempPath[unit.moveRange - 1];
+                MoveUnit(unit, unit.GetTile(), destination);
+            }
+
 
         }
         else if (unit.moveRange <= 0)
