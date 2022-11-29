@@ -64,6 +64,9 @@ public class EnemyAI : MonoBehaviour
         desPoint = GameObject.Find("Test Point");
         endPoint = Vector3Int.FloorToInt(new Vector3(desPoint.transform.position.x, desPoint.transform.position.y, 0));
 
+
+      
+        
     }
 
     //------------------------------------------------------------------------------
@@ -75,7 +78,7 @@ public class EnemyAI : MonoBehaviour
     // this functions will apply movement and attack on all Enemy units 
     //  rules: enemy will find closest player's units and get close to it, once it appoach the attack arange, it attacks
     //  wait second will be used for pause
-    IEnumerator waitSeconds(float waitTime)
+    IEnumerator runAI(float waitTime)
     {
         for(int i = 0; i < EnemyList.Count; i++)
         {
@@ -84,38 +87,24 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+
+    [Tooltip("Use this because I don't how when the moving is end")]
+    [SerializeField] float movingWaitTime;
     public void AIProcess()
     {
-        StartCoroutine(waitSeconds(1.5f));
+        StartCoroutine(runAI(movingWaitTime));
     }
 
 
-    //return unit the EnemyUnit is goint to attack
-    Units findClosestTarget(BaseUnit EnemyUnit)
-    {
-        float distance;
-        float closestDistance = 999;
-        int targetedAllyIndex = -1;
-        
-        for (int i = 0; i < AllyList.Count; i++)
-        {
-            distance = Vector3Int.Distance(EnemyUnit.GetTile(), AllyList[i].baseunit.GetTile());
-            //compare and contrast
-            if (distance < closestDistance)
-            {
-                closestDistance = distance;
-                targetedAllyIndex = i;
-            }
-        }//for end
+   
 
-        return AllyList[targetedAllyIndex];
-    }
 
 
 
     //AI move Unit1 to most proper tile 
     public void UnitHeadToUnitAI(BaseUnit Unit)
     {
+        TargetList.Clear();
         BuildTarget();
 
         List<Vector3Int> availablePath = new List<Vector3Int>();
@@ -130,27 +119,44 @@ public class EnemyAI : MonoBehaviour
         int MinIndex = -1;
         int targetIndex = -1;
 
+        GameObject resultTarget;
+
 
         for(int i = 0; i < TargetList.Count; i++)
         {
             for(int p = 0; p < TargetList[i].allAdjs.Count; p++)
             {
                 distance = Vector3Int.Distance(Unit.GetTile(), TargetList[i].allAdjs[p]);
+
                 //check 3 things, if it's the closest ally unit
                 //if the tile has something on it
                 //if the path is valid
                 if (distance < distanceMin 
                     && isTileHavingUnit(TargetList[i].allAdjs[p]) == false
-                    && GameManager.Instance.PathFinder.FindPath(Unit.GetTile(), TargetList[i].allAdjs[p], Unit).Count > 0)
+                    && GameManager.Instance.PathFinder.FindPath(Unit.GetTile(), TargetList[i].allAdjs[p], Unit).Count > 1)
                 {
+
                     distanceMin = distance;
                     MinIndex = p;
                     targetIndex =i;
                     resultTile = TargetList[i].allAdjs[p];
+                    resultTarget = TargetList[i].allyUnit.gameObject;
                 }// distance check end
+
+                if(GameManager.Instance.PathFinder.FindPath(Unit.GetTile(), TargetList[i].allAdjs[p], Unit).Count == 1)
+                {
+                    distanceMin = distance;
+                    MinIndex = p;
+                    targetIndex = i;
+                    resultTile = TargetList[i].allAdjs[p];
+                    resultTarget = TargetList[i].allyUnit.gameObject;
+                }
+
+                //Debug.Log(GameManager.Instance.PathFinder.FindPath(EnemyList[0].baseunit.GetTile(), AllyList[0].baseunit.GetTile(), EnemyList[0].baseunit).Count);
             }
         }
         //Debug.Log("the result is " + "Unit " + targetIndex + " tile " + resultTile);
+       // Debug.Log("")
        UnitHeadToTile(Unit, resultTile);
     }
 
@@ -313,7 +319,26 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    //return unit the EnemyUnit is goint to attack
+    Units findClosestTarget(BaseUnit EnemyUnit)
+    {
+        float distance;
+        float closestDistance = 999;
+        int targetedAllyIndex = -1;
 
+        for (int i = 0; i < AllyList.Count; i++)
+        {
+            distance = Vector3Int.Distance(EnemyUnit.GetTile(), AllyList[i].baseunit.GetTile());
+            //compare and contrast
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                targetedAllyIndex = i;
+            }
+        }//for end
+
+        return AllyList[targetedAllyIndex];
+    }
 
 
     //move unit from start to end
