@@ -31,7 +31,7 @@ public class TurnControlButton : MonoBehaviour
     {
         button1.enabled = false;
         //do something
-
+        GameManager.Instance.state = GameState.EnemyTurn;
         Script_EnemyAI.AIProcess();
 
 

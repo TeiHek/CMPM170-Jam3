@@ -70,15 +70,13 @@ public class EnemyAI : MonoBehaviour
         for (int i = 0; i < EnemyList.Count; i++)
         {
             UnitHeadToUnitAI(EnemyList[i].baseunit);
-            yield return new WaitForSeconds(movementFrequency);
+            yield return new WaitUntil(() => GameManager.Instance.state == GameState.EnemyTurn);
 
         }
         //this uncontrollable character will move to the house on the left top for the event
         _TaranEvent.TaranMovement();
 
-        //yield return new WaitUntil(() => GameManager.Instance.state == GameState.EnemyTurn);
-
-
+        yield return new WaitForSeconds(movementFrequency);
         isAIComplete = true;
         GameManager.Instance.state = GameState.PlayerTurn;
     }

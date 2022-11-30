@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    [HideInInspector] public GameState state;
+    public GameState state;
     [HideInInspector] public bool UIOpen;
     [HideInInspector] public bool listeningForTarget;
 
