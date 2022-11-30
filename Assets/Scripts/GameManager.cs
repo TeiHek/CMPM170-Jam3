@@ -5,14 +5,17 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public GameState state;
-    
+    [HideInInspector] public GameState state;
+    [HideInInspector] public bool UIOpen;
+    [HideInInspector] public bool listeningForTarget;
+
     // This will eventually become the script to track game state. Don't have that yet though
     [Header("Assigned at runtime")]
     public MapManager MapManager;
     public InputController Controller;
     public PathFinder PathFinder;
     public RangeFinder rangeFinder;
+    public UIMenuController UIMenuController;
 
     private void Awake()
     {
@@ -26,9 +29,12 @@ public class GameManager : MonoBehaviour
         }
         MapManager = GetComponentInChildren<MapManager>();
         Controller = GetComponentInChildren<InputController>();
+        UIMenuController = GetComponentInChildren<UIMenuController>();
         PathFinder = new PathFinder();
         rangeFinder = new RangeFinder();
         state = GameState.PlayerTurn;
+        UIOpen = false;
+        listeningForTarget = false;
     }
     // Start is called before the first frame update
     void Start()

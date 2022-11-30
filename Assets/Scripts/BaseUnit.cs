@@ -9,6 +9,7 @@ public abstract class BaseUnit : MonoBehaviour
     public int moveRange;
     public int minAttackRange;
     public int maxAttackRange;
+    public int attackDamage;
     public bool ableToAct;
 
     // Start is called before the first frame update
@@ -33,8 +34,19 @@ public abstract class BaseUnit : MonoBehaviour
         return moveRange;
     }
 
+    public int GetMinAttackRange()
+    {
+        return minAttackRange;
+    }
+
+    public int GetMaxAttackRange()
+    {
+        return maxAttackRange;
+    }
+
     public IEnumerator MovePosition(List<Vector3Int> path)
     {
+        // 4 is a hardcoded value for this but the movement speed for this is acceptable but should not change between units
         float step = 4 * Time.deltaTime;
         GameState prevState = GameManager.Instance.state;
         GameManager.Instance.state = GameState.UnitInTransit;
@@ -55,6 +67,39 @@ public abstract class BaseUnit : MonoBehaviour
         UpdateLocation(prevPos, GetTile());
     }
 
+    public IEnumerator AttackUnit(BaseUnit target)
+    {
+        // 4 is a hardcoded value for this but the movement speed for this is acceptable but should not change between units
+        float step = 4 * Time.deltaTime;
+        Vector3 targetPos = Vector3.Normalize(target.transform.position - transform.position) * 0.5f;
+        print(targetPos);
+        Vector3 returnPos = transform.position;
+        List<Vector3> path = new List<Vector3> { transform.position + targetPos, returnPos };
+        bool attackApplied = false;
+        while (path.Count > 0)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, path[0], step);
+
+            if (Vector2.Distance(transform.position, path[0]) < 0.0001f)
+            {
+                path.RemoveAt(0);
+            }
+            // jank solution but apply damage when unit is closest to targetPos, or when path length is 1
+            if(!attackApplied && path.Count == 1)
+            {
+                attackApplied = true;
+                target.ReceiveDamage(attackDamage);
+            }
+            yield return null;
+        }
+    }
+
+    public IEnumerator MoveAttack(List<Vector3Int> path, BaseUnit target)
+    {
+        yield return StartCoroutine(MovePosition(path));
+        yield return StartCoroutine(AttackUnit(target));
+    }
+
     public void ReceiveDamage(int damage)
     {
         hp -= damage;
@@ -62,7 +107,7 @@ public abstract class BaseUnit : MonoBehaviour
         {
             // Remove and destroy the GameObject if it dies
             GameManager.Instance.MapManager.removeUnit(GetTile());
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 

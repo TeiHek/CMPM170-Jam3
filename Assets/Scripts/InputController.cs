@@ -27,6 +27,10 @@ public class InputController : MonoBehaviour
 
     private void ApplyMoveCamera()
     {
+        if (GameManager.Instance.UIOpen || GameManager.Instance.listeningForTarget)
+        {
+            return;
+        }
         rb.velocity = LimitCameraMovement(targetMovement);
     }
 
@@ -78,19 +82,26 @@ public class InputController : MonoBehaviour
             {
                 return;
             }
+            BaseUnit selectedUnit = GameManager.Instance.MapManager.GetSelectedUnit();
 
-            // Actions if a unit is selected
-            if(GameManager.Instance.MapManager.GetSelectedUnit() != null)
+            // Select an enemy to attack, deselect if target is out of range or not an enemy
+            if (GameManager.Instance.listeningForTarget)
             {
-                // Click on same unit
-                if(GameManager.Instance.MapManager.GetUnitAt(pos) == GameManager.Instance.MapManager.GetSelectedUnit())
+                GameManager.Instance.listeningForTarget = false;
+                BaseUnit unit = GameManager.Instance.MapManager.GetUnitAt(pos);
+                if (GameManager.Instance.MapManager.EnemyInAttackRange(unit))
                 {
-                    // Bring up option menu
-                    return;
+                    GameManager.Instance.MapManager.MoveAttack(GameManager.Instance.MapManager.GetTargetTile(), unit);
                 }
-
+                else GameManager.Instance.MapManager.DeselectUnit();
+                return;
+            }
+            // Actions if a unit is selected
+            if (selectedUnit != null && !GameManager.Instance.UIOpen)
+            {
                 // Click on another unit after first selection or tile unit cannot navigate to
-                if(GameManager.Instance.MapManager.IsAllyUnit(pos) || !GameManager.Instance.MapManager.IsNavigable(pos) )
+                if ( (GameManager.Instance.MapManager.IsUnit(pos) && GameManager.Instance.MapManager.GetUnitAt(pos) != GameManager.Instance.MapManager.GetSelectedUnit()) || 
+                     !GameManager.Instance.MapManager.IsNavigable(pos) || !GameManager.Instance.MapManager.InSelectedUnitMoveRange(pos))
                 {
                     print("Deselect");
                     // Deselect Unit
@@ -98,21 +109,17 @@ public class InputController : MonoBehaviour
                     return;
                 }
 
-                // Click on unoccupied tile
-                if(GameManager.Instance.MapManager.GetUnitAt(pos) == null)
-                {
-                    // Note: Bring up a menu before choosing to move.
-                    //print("move");
-                    GameManager.Instance.MapManager.MoveSelectedUnit(pos);
-                    return;
-                }
+                GameManager.Instance.MapManager.SelectTargetTile(pos);
+                GameManager.Instance.MapManager.ClearMoveAttackTiles();
+                GameManager.Instance.MapManager.ShowAttackTiles(pos, GameManager.Instance.MapManager.GetSelectedUnit());
+                GameManager.Instance.UIMenuController.ShowActionButtons(pos, GameManager.Instance.MapManager.EnemyInAttackRange(pos, selectedUnit.GetMaxAttackRange(), selectedUnit.GetMaxAttackRange()));
             }
-           // print("hi");
             // Check if allied unit and has not acted yet
             if(GameManager.Instance.MapManager.IsAllyUnit(pos) && GameManager.Instance.MapManager.GetUnitAt(pos).ableToAct)
             {
                 //print("Selected");
                 GameManager.Instance.MapManager.SelectUnit(pos);
+                GameManager.Instance.MapManager.ShowMoveAttackRange(pos);
             }
         }
     }

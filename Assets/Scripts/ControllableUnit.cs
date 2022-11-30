@@ -9,6 +9,7 @@ public class ControllableUnit : BaseUnit
     {
         SnapToGrid();
         AddUnit();
+        hp = maxHp;
     }
 
     // Update is called once per frame
