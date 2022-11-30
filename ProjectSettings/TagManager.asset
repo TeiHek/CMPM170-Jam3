@@ -44,9 +44,12 @@ TagManager:
   - name: Tiles
     uniqueID: 296785727
     locked: 0
+  - name: Overlay
+    uniqueID: 2636096317
+    locked: 0
   - name: Characters
     uniqueID: 2624740133
     locked: 0
   - name: Cursor
-    uniqueID: 2636096317
+    uniqueID: 2005130981
     locked: 0
