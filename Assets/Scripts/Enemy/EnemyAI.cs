@@ -1,19 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Security.Cryptography;
-using Unity.VisualScripting;
-using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.Android;
-using UnityEngine.InputSystem.XR;
-using UnityEngine.UIElements;
-using static UnityEditor.Progress;
-using static UnityEngine.EventSystems.EventTrigger;
-using static UnityEngine.UI.CanvasScaler;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -63,7 +50,8 @@ public class EnemyAI : MonoBehaviour
         for (int i = 0; i < EnemyList.Count; i++)
         {
             UnitHeadToUnitAI(EnemyList[i].baseunit);
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(0.25f);
+            yield return new WaitUntil(() => GameManager.Instance.state == GameState.EnemyTurn);
         }
 
         isAIComplete = true;
