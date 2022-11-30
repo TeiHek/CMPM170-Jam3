@@ -8,12 +8,14 @@ using static UnityEngine.UI.CanvasScaler;
 
 public class EnemyAI : MonoBehaviour
 {
+
     [System.Serializable]
     public struct Units{
         public GameObject gameObject;
         [HideInInspector]public BaseUnit baseunit;
     }
 
+    public float movementFrequency;
 
      public List<Units> EnemyList = new List<Units>();
      public List<Units> AllyList = new List<Units>();
@@ -61,11 +63,12 @@ public class EnemyAI : MonoBehaviour
         for (int i = 0; i < EnemyList.Count; i++)
         {
             UnitHeadToUnitAI(EnemyList[i].baseunit);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(movementFrequency);
+            yield return new WaitUntil(() => GameManager.Instance.state == GameState.EnemyTurn);
         }
 
 
-        yield return new WaitUntil(() => GameManager.Instance.state == GameState.EnemyTurn);
+   
 
         isAIComplete = true;
         GameManager.Instance.state = GameState.PlayerTurn;
@@ -153,7 +156,6 @@ public class EnemyAI : MonoBehaviour
     {
         int pathLength;
         pathLength = GameManager.Instance.PathFinder.FindPath(attacker.GetTile(), resultTile, attacker).Count + 1;
-        Debug.Log("Path is " + pathLength);
 
         int attackRange = attacker.maxAttackRange;
         int moveRange = attacker.moveRange;
@@ -339,9 +341,10 @@ public class EnemyAI : MonoBehaviour
     //make unit head to the destination tile due to the movment range
     void UnitHeadToTile(BaseUnit unit, Vector3Int destination)
     {
+        
         // assignPath to temp variable
         tempPath = new List<Vector3Int>(GameManager.Instance.PathFinder.FindPath(unit.GetTile(), destination, unit));
-
+        Vector3Int resultDestination = destination;
         if (unit.moveRange > tempPath.Count)
         {
             //des is bigger than range
@@ -351,16 +354,34 @@ public class EnemyAI : MonoBehaviour
             }
             else
             {
-                destination = tempPath[tempPath.Count - 1];
-                MoveUnit(unit, unit.GetTile(), destination);
+                //find the moveable tiles
+                for(int i = 0; i < tempPath.Count; i++)
+                {
+                    if(tempPath.Count - 1 - i <= 0)
+                    {
+                        //don't move
+                        MoveUnit(unit, unit.GetTile(), unit.GetTile());
+                    }
+                    else
+                    {
+                        //find closest possible tile to move
+                        destination = tempPath[tempPath.Count - 1 - i];
+                        if (isTileHavingUnit(destination) == false)
+                        {
+                            resultDestination = destination;
+                            break;
+                        }
+                    }
+                }
+                MoveUnit(unit, unit.GetTile(), resultDestination);
             }
 
         }
         else if (unit.moveRange <= tempPath.Count && unit.moveRange > 0)
         {
-            //des is smaller than range
-
-            if(unit.moveRange == tempPath.Count)
+            
+            //des is bigger than range
+            if (unit.moveRange == tempPath.Count)
             {
                 destination = tempPath[unit.moveRange - 1];
             }
@@ -369,23 +390,31 @@ public class EnemyAI : MonoBehaviour
                 destination = tempPath[unit.moveRange];
             }
             
+            for(int i = 0; i < tempPath.Count; i++){
 
-            if (isTileHavingUnit(destination) == false)
-            {
-                MoveUnit(unit, unit.GetTile(), destination);
+                if (isTileHavingUnit(destination) == false)
+                {
+                    MoveUnit(unit, unit.GetTile(), destination);
+                    break;
+                }
+                else
+                {
+                    if (unit.moveRange - 1 - i == 0)
+                    {
+                        //not move
+                        break;
+                    }
+                    destination = tempPath[unit.moveRange - 1 - i];
+                }
             }
-            else
-            {
-                destination = tempPath[unit.moveRange - 1];
-                MoveUnit(unit, unit.GetTile(), destination);
-            }
-
+            
 
         }
         else if (unit.moveRange <= 0)
         {
             Debug.Log("Error: No moverange has been set for this unit");
         }
+
     }
 
     //return unit the EnemyUnit is goint to attack
