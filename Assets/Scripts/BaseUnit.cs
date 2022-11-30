@@ -72,7 +72,7 @@ public abstract class BaseUnit : MonoBehaviour
         // 4 is a hardcoded value for this but the movement speed for this is acceptable but should not change between units
         float step = 4 * Time.deltaTime;
         Vector3 targetPos = Vector3.Normalize(target.transform.position - transform.position) * 0.5f;
-        print(targetPos);
+        //print(targetPos);
         Vector3 returnPos = transform.position;
         List<Vector3> path = new List<Vector3> { transform.position + targetPos, returnPos };
         bool attackApplied = false;

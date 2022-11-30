@@ -151,7 +151,7 @@ public class MapManager : MonoBehaviour
             enemyUnits.Remove(pos);
         }
         // Should not remove nothing, debug line
-        else print("No unit to remove");
+        //else print("No unit to remove");
     }
 
     public void UpdateUnitLocation(BaseUnit unit, Vector3Int prevPos, Vector3Int newPos)

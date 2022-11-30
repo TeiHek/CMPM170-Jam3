@@ -1,15 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
+using static UnityEngine.UI.CanvasScaler;
 
 public class EnemyAI : MonoBehaviour
 {
+
+    public GameObject _EventObject;
+    private TaranEvent _TaranEvent;
+    
+
     [System.Serializable]
     public struct Units{
         public GameObject gameObject;
         [HideInInspector]public BaseUnit baseunit;
     }
 
+    public float movementFrequency;
 
      public List<Units> EnemyList = new List<Units>();
      public List<Units> AllyList = new List<Units>();
@@ -22,12 +33,17 @@ public class EnemyAI : MonoBehaviour
     //private Vector3Int Destination;
     private List<Vector3Int> tempPath;
 
+    //public BaseUnit attacker;
+    //public BaseUnit targeter;
 
     private void Awake()
     {
+        _TaranEvent = _EventObject.GetComponent<TaranEvent>();
         //init Lists of allys and enemys
         buildList();
 
+
+        //MoveAttack(attacker, targeter);
 
     }
 
@@ -37,36 +53,42 @@ public class EnemyAI : MonoBehaviour
     // helper functions only called in function
 
     //this bool will determine if the all ai movement is complete
-    public bool isAIComplete = false;
+    [HideInInspector]public bool isAIComplete = false;
+
+
 
     // this functions will apply movement and attack on all Enemy units 
     //  rules: enemy will find closest player's units and get close to it, once it appoach the attack arange, it attacks
     //  wait second will be used for pause
-    IEnumerator runAI(float waitTime)
+    IEnumerator runAI()
     {
 
         isAIComplete = false;
 
         //rebuild the list to remove all inactive cases
         buildList();
-
         for (int i = 0; i < EnemyList.Count; i++)
         {
             UnitHeadToUnitAI(EnemyList[i].baseunit);
-            yield return new WaitForSeconds(0.25f);
             yield return new WaitUntil(() => GameManager.Instance.state == GameState.EnemyTurn);
-        }
 
+        }
+        //this uncontrollable character will move to the house on the left top for the event
+        _TaranEvent.TaranMovement();
+
+        yield return new WaitForSeconds(movementFrequency);
         isAIComplete = true;
         GameManager.Instance.state = GameState.PlayerTurn;
     }
 
-
-    [Tooltip("Use this because I don't how when the moving is end")]
-    [SerializeField] float movingWaitTime;
     public void AIProcess()
     {
-        StartCoroutine(runAI(movingWaitTime));
+        //run ai if it has Enemy
+        if(EnemyList.Count >= 0)
+        {
+            StartCoroutine(runAI());
+        }
+
     }
 
 
@@ -98,16 +120,17 @@ public class EnemyAI : MonoBehaviour
 
         for(int i = 0; i < TargetList.Count; i++)
         {
-            for(int p = 0; p < TargetList[i].allAdjs.Count; p++)
+            for (int p = 0; p < TargetList[i].allAdjs.Count; p++)
             {
                 distance = Vector3Int.Distance(Unit.GetTile(), TargetList[i].allAdjs[p]);
-
+                //get travel path, range, attack range details
+                List<Vector3Int> travelPath = GameManager.Instance.PathFinder.FindPath(Unit.GetTile(), TargetList[i].allAdjs[p], Unit);
                 //check 3 things, if it's the closest ally unit
                 //if the tile has something on it
                 //if the path is valid
                 if (distance < distanceMin 
                     && isTileHavingUnit(TargetList[i].allAdjs[p]) == false
-                    && GameManager.Instance.PathFinder.FindPath(Unit.GetTile(), TargetList[i].allAdjs[p], Unit).Count > 1)
+                    && travelPath.Count > 1)
                 {
 
                     distanceMin = distance;
@@ -117,7 +140,8 @@ public class EnemyAI : MonoBehaviour
                     resultTarget = TargetList[i].allyUnit.gameObject;
                 }// distance check end
 
-                if(GameManager.Instance.PathFinder.FindPath(Unit.GetTile(), TargetList[i].allAdjs[p], Unit).Count == 1)
+                //it won't move if it's already close to target
+                if(travelPath.Count == 1)
                 {
                     distanceMin = distance;
                     MinIndex = p;
@@ -126,15 +150,39 @@ public class EnemyAI : MonoBehaviour
                     resultTarget = TargetList[i].allyUnit.gameObject;
                 }
 
-                //Debug.Log(GameManager.Instance.PathFinder.FindPath(EnemyList[0].baseunit.GetTile(), AllyList[0].baseunit.GetTile(), EnemyList[0].baseunit).Count);
+                
             }
         }
-        //Debug.Log("the result is " + "Unit " + targetIndex + " tile " + resultTile);
-       // Debug.Log("")
-       UnitHeadToTile(Unit, resultTile);
+        MoveAttack(Unit, TargetList[targetIndex].allyUnit.baseunit, resultTile);
     }
 
 
+
+    
+    public void MoveAttack(BaseUnit attacker, BaseUnit target, Vector3Int resultTile)
+    {
+        int pathLength;
+        pathLength = GameManager.Instance.PathFinder.FindPath(attacker.GetTile(), resultTile, attacker).Count + 1;
+
+        int attackRange = attacker.maxAttackRange;
+        int moveRange = attacker.moveRange;
+        if (pathLength - 1 <= attackRange)
+        {
+            //attack if it's on range
+            //this means it will not move, and just attack
+            AttackBetweenTwo(attacker, target);
+        }
+        else if (attackRange + moveRange >= pathLength - 1)
+        {
+            //move and attack
+            StartCoroutine(waitSecondsForAttack(1, attacker, target, resultTile));
+        }
+        else if (attackRange + moveRange < pathLength - 1)
+        {
+            //just move
+            UnitHeadToTile(attacker, resultTile);
+        }
+    }
 
 
 
@@ -300,9 +348,10 @@ public class EnemyAI : MonoBehaviour
     //make unit head to the destination tile due to the movment range
     void UnitHeadToTile(BaseUnit unit, Vector3Int destination)
     {
+        
         // assignPath to temp variable
         tempPath = new List<Vector3Int>(GameManager.Instance.PathFinder.FindPath(unit.GetTile(), destination, unit));
-
+        Vector3Int resultDestination = destination;
         if (unit.moveRange > tempPath.Count)
         {
             //des is bigger than range
@@ -312,16 +361,34 @@ public class EnemyAI : MonoBehaviour
             }
             else
             {
-                destination = tempPath[tempPath.Count - 1];
-                MoveUnit(unit, unit.GetTile(), destination);
+                //find the moveable tiles
+                for(int i = 0; i < tempPath.Count; i++)
+                {
+                    if(tempPath.Count - 1 - i <= 0)
+                    {
+                        //don't move
+                        MoveUnit(unit, unit.GetTile(), unit.GetTile());
+                    }
+                    else
+                    {
+                        //find closest possible tile to move
+                        destination = tempPath[tempPath.Count - 1 - i];
+                        if (isTileHavingUnit(destination) == false)
+                        {
+                            resultDestination = destination;
+                            break;
+                        }
+                    }
+                }
+                MoveUnit(unit, unit.GetTile(), resultDestination);
             }
 
         }
         else if (unit.moveRange <= tempPath.Count && unit.moveRange > 0)
         {
-            //des is smaller than range
-
-            if(unit.moveRange == tempPath.Count)
+            
+            //des is bigger than range
+            if (unit.moveRange == tempPath.Count)
             {
                 destination = tempPath[unit.moveRange - 1];
             }
@@ -330,23 +397,31 @@ public class EnemyAI : MonoBehaviour
                 destination = tempPath[unit.moveRange];
             }
             
+            for(int i = 0; i < tempPath.Count; i++){
 
-            if (isTileHavingUnit(destination) == false)
-            {
-                MoveUnit(unit, unit.GetTile(), destination);
+                if (isTileHavingUnit(destination) == false)
+                {
+                    MoveUnit(unit, unit.GetTile(), destination);
+                    break;
+                }
+                else
+                {
+                    if (unit.moveRange - 1 - i == 0)
+                    {
+                        //not move
+                        break;
+                    }
+                    destination = tempPath[unit.moveRange - 1 - i];
+                }
             }
-            else
-            {
-                destination = tempPath[unit.moveRange - 1];
-                MoveUnit(unit, unit.GetTile(), destination);
-            }
-
+            
 
         }
         else if (unit.moveRange <= 0)
         {
             Debug.Log("Error: No moverange has been set for this unit");
         }
+
     }
 
     //return unit the EnemyUnit is goint to attack
@@ -370,6 +445,25 @@ public class EnemyAI : MonoBehaviour
         return AllyList[targetedAllyIndex];
     }
 
+
+
+    //helper function for enmey attack
+    IEnumerator waitSecondsForAttack(float waitTime, BaseUnit attacker, BaseUnit target, Vector3Int resultTile)
+    {
+        //move unit
+        UnitHeadToTile(attacker, resultTile);
+        yield return new WaitForSeconds(waitTime);
+        //then attack
+        AttackBetweenTwo(attacker, target);
+    }
+
+    //helper function for enmey attack
+    void AttackBetweenTwo(BaseUnit attacker, BaseUnit target)
+    {
+        //bad use for function MoveAttack(travelPath, target), but this will make it not move, moving is handled by my functions
+        List<Vector3Int> travelPath = GameManager.Instance.PathFinder.FindPath(attacker.GetTile(), attacker.GetTile(), attacker);
+        StartCoroutine(attacker.MoveAttack(travelPath, target));
+    }
 
     //move unit from start to end
     void MoveUnit(BaseUnit unit, Vector3Int start, Vector3Int end)
