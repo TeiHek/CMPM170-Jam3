@@ -19,7 +19,7 @@ public class doubleclick : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonUp(0))
+        if(Input.GetMouseButtonUp(1))
         {
             leftClickNum += 1;
         }
