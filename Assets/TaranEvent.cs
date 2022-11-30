@@ -44,23 +44,8 @@ public class TaranEvent : MonoBehaviour
             }
             else
             {
-                //find the moveable tiles
-                for (int i = 0; i < tempPath.Count; i++)
-                {
-                    if (tempPath.Count - 1 - i <= 0)
-                    {
-                        //don't move
-                        MoveUnit(unit, unit.GetTile(), unit.GetTile());
-                    }
-                    else
-                    {
-                        //find closest possible tile to move
-                        destination = tempPath[tempPath.Count - 1 - i];
-                    }
-                }
-                MoveUnit(unit, unit.GetTile(), resultDestination);
+                MoveUnit(unit, unit.GetTile(), destination);
             }
-
         }
         else if (unit.moveRange <= tempPath.Count && unit.moveRange > 0)
         {
@@ -74,7 +59,7 @@ public class TaranEvent : MonoBehaviour
             {
                 destination = tempPath[unit.moveRange];
             }
-
+            MoveUnit(unit, unit.GetTile(), destination);
         }
 
 
