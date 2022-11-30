@@ -11,6 +11,7 @@ public class Flamethrower : MonoBehaviour
     public VisualEffect magic;
     public VisualEffect impact;
     public VisualEffect slash;
+    public VisualEffect elec;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +21,7 @@ public class Flamethrower : MonoBehaviour
         magic.Stop();
         impact.Stop();
         slash.Stop();
+        elec.Stop();
     }
 
     // Update is called once per frame
@@ -83,6 +85,16 @@ public class Flamethrower : MonoBehaviour
         if (Input.GetKeyUp("6"))
         {
             slash.Stop();
+        }
+
+        // electricity
+        if (Input.GetKeyDown("7"))
+        {
+            elec.Play();
+        }
+        if (Input.GetKeyUp("7"))
+        {
+            elec.Stop();
         }
     }
 }
