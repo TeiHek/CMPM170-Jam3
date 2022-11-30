@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,10 +31,9 @@ public class TurnControlButton : MonoBehaviour
     {
         button1.enabled = false;
         //do something
-        //  Script_EnemyAI.UnitHeadTo(Script_EnemyAI.Unit1, Script_EnemyAI.endPoint);
 
         Script_EnemyAI.AIProcess();
-        //Script_EnemyAI.UnitHeadToUnit(Script_EnemyAI.EnemyList[0].baseunit, Script_EnemyAI.AllyList[0].baseunit);
+
 
         button1.enabled = true;
     }

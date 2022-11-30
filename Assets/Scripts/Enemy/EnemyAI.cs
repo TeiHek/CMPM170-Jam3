@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 using static UnityEngine.UI.CanvasScaler;
@@ -25,12 +26,15 @@ public class EnemyAI : MonoBehaviour
     //private Vector3Int Destination;
     private List<Vector3Int> tempPath;
 
+    //public BaseUnit attacker;
+    //public BaseUnit targeter;
 
     private void Awake()
     {
         //init Lists of allys and enemys
         buildList();
 
+        //MoveAttack(attacker, targeter);
 
     }
 
@@ -38,52 +42,6 @@ public class EnemyAI : MonoBehaviour
     //------------------------------ Functions -------------------------------------
     // in case u don't know my rules, but only functions will be called in Start/Awake/Update
     // helper functions only called in function
-
-    public BaseUnit attacker;
-    public BaseUnit targeter;
-
-    private void Start()
-    {
-        MoveAttack(attacker, targeter);
-    }
-
-
-    // attacker = the Unit that is attacking
-    // pos = Where the unit should move to
-    // target = The unit to attack
-    public void MoveAttack(BaseUnit attacker, BaseUnit target)
-    {
-        int attackRange = attacker.maxAttackRange;
-        int moveRange = attacker.moveRange;
-        List<Vector3Int> travelPath = GameManager.Instance.PathFinder.FindPath(attacker.GetTile(), target.GetTile(), attacker);
-
-        Debug.Log(attacker.GetTile());
-        Debug.Log(target.GetTile());
-        Debug.Log(travelPath.Count);
-
-        if (travelPath.Count <= attackRange)
-        {
-            //attack if it's on range
-            Debug.Log("on range");
-        }
-        else
-        {
-            //move first then attack if it's out of range before attack
-            Debug.Log("out of range");
-        }
-
-
-        //if (travelPath.Count - 1 > target.GetMoveRange())
-        //{
-        //    return;
-        //}
-        //StartCoroutine(attacker.MoveAttack(travelPath, target));
-    }
-
-
-
-
-
 
     //this bool will determine if the all ai movement is complete
     [HideInInspector]public bool isAIComplete = false;
@@ -100,13 +58,14 @@ public class EnemyAI : MonoBehaviour
 
         //rebuild the list to remove all inactive cases
         buildList();
-
         for (int i = 0; i < EnemyList.Count; i++)
         {
             UnitHeadToUnitAI(EnemyList[i].baseunit);
-            yield return new WaitForSeconds(0.25f);
-            yield return new WaitUntil(() => GameManager.Instance.state == GameState.EnemyTurn);
+            yield return new WaitForSeconds(1f);
         }
+
+
+        yield return new WaitUntil(() => GameManager.Instance.state == GameState.EnemyTurn);
 
         isAIComplete = true;
         GameManager.Instance.state = GameState.PlayerTurn;
@@ -114,7 +73,12 @@ public class EnemyAI : MonoBehaviour
 
     public void AIProcess()
     {
-        StartCoroutine(runAI());
+        //run ai if it has Enemy
+        if(EnemyList.Count >= 0)
+        {
+            StartCoroutine(runAI());
+        }
+
     }
 
 
@@ -146,16 +110,17 @@ public class EnemyAI : MonoBehaviour
 
         for(int i = 0; i < TargetList.Count; i++)
         {
-            for(int p = 0; p < TargetList[i].allAdjs.Count; p++)
+            for (int p = 0; p < TargetList[i].allAdjs.Count; p++)
             {
                 distance = Vector3Int.Distance(Unit.GetTile(), TargetList[i].allAdjs[p]);
-
+                //get travel path, range, attack range details
+                List<Vector3Int> travelPath = GameManager.Instance.PathFinder.FindPath(Unit.GetTile(), TargetList[i].allAdjs[p], Unit);
                 //check 3 things, if it's the closest ally unit
                 //if the tile has something on it
                 //if the path is valid
                 if (distance < distanceMin 
                     && isTileHavingUnit(TargetList[i].allAdjs[p]) == false
-                    && GameManager.Instance.PathFinder.FindPath(Unit.GetTile(), TargetList[i].allAdjs[p], Unit).Count > 1)
+                    && travelPath.Count > 1)
                 {
 
                     distanceMin = distance;
@@ -165,7 +130,8 @@ public class EnemyAI : MonoBehaviour
                     resultTarget = TargetList[i].allyUnit.gameObject;
                 }// distance check end
 
-                if(GameManager.Instance.PathFinder.FindPath(Unit.GetTile(), TargetList[i].allAdjs[p], Unit).Count == 1)
+                //it won't move if it's already close to target
+                if(travelPath.Count == 1)
                 {
                     distanceMin = distance;
                     MinIndex = p;
@@ -174,15 +140,40 @@ public class EnemyAI : MonoBehaviour
                     resultTarget = TargetList[i].allyUnit.gameObject;
                 }
 
-                //Debug.Log(GameManager.Instance.PathFinder.FindPath(EnemyList[0].baseunit.GetTile(), AllyList[0].baseunit.GetTile(), EnemyList[0].baseunit).Count);
+                
             }
         }
-        //Debug.Log("the result is " + "Unit " + targetIndex + " tile " + resultTile);
-       // Debug.Log("")
-       UnitHeadToTile(Unit, resultTile);
+        MoveAttack(Unit, TargetList[targetIndex].allyUnit.baseunit, resultTile);
     }
 
 
+
+    
+    public void MoveAttack(BaseUnit attacker, BaseUnit target, Vector3Int resultTile)
+    {
+        int pathLength;
+        pathLength = GameManager.Instance.PathFinder.FindPath(attacker.GetTile(), resultTile, attacker).Count + 1;
+        Debug.Log("Path is " + pathLength);
+
+        int attackRange = attacker.maxAttackRange;
+        int moveRange = attacker.moveRange;
+        if (pathLength - 1 <= attackRange)
+        {
+            //attack if it's on range
+            //this means it will not move, and just attack
+            AttackBetweenTwo(attacker, target);
+        }
+        else if (attackRange + moveRange >= pathLength - 1)
+        {
+            //move and attack
+            StartCoroutine(waitSecondsForAttack(1, attacker, target, resultTile));
+        }
+        else if (attackRange + moveRange < pathLength - 1)
+        {
+            //just move
+            UnitHeadToTile(attacker, resultTile);
+        }
+    }
 
 
 
@@ -418,6 +409,25 @@ public class EnemyAI : MonoBehaviour
         return AllyList[targetedAllyIndex];
     }
 
+
+
+    //helper function for enmey attack
+    IEnumerator waitSecondsForAttack(float waitTime, BaseUnit attacker, BaseUnit target, Vector3Int resultTile)
+    {
+        //move unit
+        UnitHeadToTile(attacker, resultTile);
+        yield return new WaitForSeconds(waitTime);
+        //then attack
+        AttackBetweenTwo(attacker, target);
+    }
+
+    //helper function for enmey attack
+    void AttackBetweenTwo(BaseUnit attacker, BaseUnit target)
+    {
+        //bad use for function MoveAttack(travelPath, target), but this will make it not move, moving is handled by my functions
+        List<Vector3Int> travelPath = GameManager.Instance.PathFinder.FindPath(attacker.GetTile(), attacker.GetTile(), attacker);
+        StartCoroutine(attacker.MoveAttack(travelPath, target));
+    }
 
     //move unit from start to end
     void MoveUnit(BaseUnit unit, Vector3Int start, Vector3Int end)
