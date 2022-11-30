@@ -35,6 +35,7 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 819eb262250f29443936c78e52602ee3, type: 3}
     - {fileID: 2800000, guid: 15c6b535a86612447afa7c5d5621ce02, type: 3}
     - {fileID: 2800000, guid: 1554a485458931548a2ad941d1575155, type: 3}
+    - {fileID: 2800000, guid: 7e7dfca47eacc18439e05afb9af870b3, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -99,6 +100,19 @@ SpriteAtlas:
   - {fileID: 1760772283, guid: 819eb262250f29443936c78e52602ee3, type: 3}
   - {fileID: 699674367, guid: 819eb262250f29443936c78e52602ee3, type: 3}
   - {fileID: 1937732119, guid: 819eb262250f29443936c78e52602ee3, type: 3}
+  - {fileID: -163845476, guid: 7e7dfca47eacc18439e05afb9af870b3, type: 3}
+  - {fileID: 949180175, guid: 7e7dfca47eacc18439e05afb9af870b3, type: 3}
+  - {fileID: 1293531381, guid: 7e7dfca47eacc18439e05afb9af870b3, type: 3}
+  - {fileID: 1711494957, guid: 7e7dfca47eacc18439e05afb9af870b3, type: 3}
+  - {fileID: -1546187674, guid: 7e7dfca47eacc18439e05afb9af870b3, type: 3}
+  - {fileID: 2004481246, guid: 7e7dfca47eacc18439e05afb9af870b3, type: 3}
+  - {fileID: 658959898, guid: 7e7dfca47eacc18439e05afb9af870b3, type: 3}
+  - {fileID: -1896527026, guid: 7e7dfca47eacc18439e05afb9af870b3, type: 3}
+  - {fileID: 698019225, guid: 7e7dfca47eacc18439e05afb9af870b3, type: 3}
+  - {fileID: -1640150336, guid: 7e7dfca47eacc18439e05afb9af870b3, type: 3}
+  - {fileID: 1473011561, guid: 7e7dfca47eacc18439e05afb9af870b3, type: 3}
+  - {fileID: 1204752396, guid: 7e7dfca47eacc18439e05afb9af870b3, type: 3}
+  - {fileID: -293445274, guid: 7e7dfca47eacc18439e05afb9af870b3, type: 3}
   - {fileID: 549032199, guid: 15c6b535a86612447afa7c5d5621ce02, type: 3}
   - {fileID: -1328874772, guid: 15c6b535a86612447afa7c5d5621ce02, type: 3}
   - {fileID: 416845154, guid: 15c6b535a86612447afa7c5d5621ce02, type: 3}
@@ -326,6 +340,19 @@ SpriteAtlas:
   - tileset_medieval_props_28
   - tileset_medieval_props_49
   - tileset_medieval_props_48
+  - Background_6
+  - Background_7
+  - Background_4
+  - Background_5
+  - Background_2
+  - Background_3
+  - Background_0
+  - Background_1
+  - Background_8
+  - Background_9
+  - Background_11
+  - Background_10
+  - Background_12
   - tileset_medieval_path_60
   - tileset_medieval_path_61
   - tileset_medieval_path_59

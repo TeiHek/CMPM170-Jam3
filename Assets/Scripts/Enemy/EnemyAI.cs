@@ -18,8 +18,6 @@ public class EnemyAI : MonoBehaviour
     private GameObject EnemyUnits;
     private GameObject AllyUnits;
 
-    [HideInInspector] public Vector3Int endPoint;
-    private GameObject desPoint;
 
     //private Vector3Int Destination;
     private List<Vector3Int> tempPath;
@@ -28,32 +26,9 @@ public class EnemyAI : MonoBehaviour
     private void Awake()
     {
         //init Lists of allys and enemys
-        EnemyUnits = GameObject.Find("*Enemy/*Units");
-
-        for (int i = 0; i < EnemyUnits.transform.childCount; i++)
-        {
-            Units tempUnit = new Units();
-            tempUnit.gameObject = EnemyUnits.transform.GetChild(i).gameObject;
-            tempUnit.baseunit = tempUnit.gameObject.GetComponent<EnemyUnit>();
-            EnemyList.Add(tempUnit);
-        }
-
-        AllyUnits = GameObject.Find("*Ally/*Units");
-
-        for (int i = 0; i < AllyUnits.transform.childCount; i++)
-        {
-            Units tempUnit = new Units();
-            tempUnit.gameObject = AllyUnits.transform.GetChild(i).gameObject;
-            tempUnit.baseunit = tempUnit.gameObject.GetComponent<ControllableUnit>();
-            AllyList.Add(tempUnit);
-        }
-
-        desPoint = GameObject.Find("Test Point");
-        endPoint = Vector3Int.FloorToInt(new Vector3(desPoint.transform.position.x, desPoint.transform.position.y, 0));
+        buildList();
 
 
-      
-        
     }
 
     //------------------------------------------------------------------------------
@@ -61,18 +36,29 @@ public class EnemyAI : MonoBehaviour
     // in case u don't know my rules, but only functions will be called in Start/Awake/Update
     // helper functions only called in function
 
+    //this bool will determine if the all ai movement is complete
+    public bool isAIComplete = false;
 
     // this functions will apply movement and attack on all Enemy units 
     //  rules: enemy will find closest player's units and get close to it, once it appoach the attack arange, it attacks
     //  wait second will be used for pause
     IEnumerator runAI(float waitTime)
     {
-        for(int i = 0; i < EnemyList.Count; i++)
+
+        isAIComplete = false;
+
+        //rebuild the list to remove all inactive cases
+        buildList();
+
+        for (int i = 0; i < EnemyList.Count; i++)
         {
             UnitHeadToUnitAI(EnemyList[i].baseunit);
             yield return new WaitForSeconds(0.25f);
             yield return new WaitUntil(() => GameManager.Instance.state == GameState.EnemyTurn);
         }
+
+        isAIComplete = true;
+        GameManager.Instance.state = GameState.PlayerTurn;
     }
 
 
@@ -202,7 +188,45 @@ public class EnemyAI : MonoBehaviour
     //------------------------------ Helper Functions ------------------------------
     //only be called in function
 
+    void buildList()
+    {
+        EnemyList.Clear();
+        AllyList.Clear();
+
+        EnemyUnits = GameObject.Find("*Enemy/*Units");
+
+        for (int i = 0; i < EnemyUnits.transform.childCount; i++)
+        {
+            if (EnemyUnits.transform.GetChild(i).gameObject.activeSelf)
+            {
+                //active will be stored
+                Units tempUnit = new Units();
+                tempUnit.gameObject = EnemyUnits.transform.GetChild(i).gameObject;
+                tempUnit.baseunit = tempUnit.gameObject.GetComponent<EnemyUnit>();
+                EnemyList.Add(tempUnit);
+            }
+
+        }
+
+        AllyUnits = GameObject.Find("*Ally/*Units");
+
+        for (int i = 0; i < AllyUnits.transform.childCount; i++)
+        {
+            if (AllyUnits.transform.GetChild(i).gameObject.activeSelf)
+            {
+                Units tempUnit = new Units();
+                tempUnit.gameObject = AllyUnits.transform.GetChild(i).gameObject;
+                tempUnit.baseunit = tempUnit.gameObject.GetComponent<ControllableUnit>();
+                AllyList.Add(tempUnit);
+            }
+
+        }
+    }
     
+
+
+
+
     [HideInInspector]
     public struct target
     {
