@@ -79,5 +79,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: be39be65012e1b543a0cab5cf70e204a, type: 2}
   - {fileID: 11400000, guid: 022172aa300c3514eb1f67150bf6f008, type: 2}
   - {fileID: 11400000, guid: 9a3255d4997c38148834ec7d7d0bc4d7, type: 2}
+  - {fileID: 11400000, guid: a54e92fceca63bf4c919299f81ced9bc, type: 2}
+  - {fileID: 11400000, guid: 20e72b470b7c3ca41aa2feaabca4b495, type: 2}
+  - {fileID: 11400000, guid: 0d94ec203a6fef046afeb585b51dd8bd, type: 2}
+  - {fileID: 11400000, guid: 4f030b753af68c44bbe79d6e1c5e8d84, type: 2}
+  - {fileID: 11400000, guid: b8b10b2f601b21749a9c8e835ab17a53, type: 2}
+  - {fileID: 11400000, guid: 64ef00c0f9792d4498a15090fd1721ab, type: 2}
   navigable: 1
   moveCost: 1

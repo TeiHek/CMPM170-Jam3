@@ -15,6 +15,7 @@ public class MapManager : MonoBehaviour
     [SerializeField] private Tile hoverTile;
     [SerializeField] private RuleTile pathTile;
     [SerializeField] private Tile allyOverlayMoveTile;
+    [SerializeField] private Tile allyOverlayAttackTile;
 
     [Header("Tile Data")]
     [SerializeField] private List<TileData> tileDataList;
@@ -30,6 +31,7 @@ public class MapManager : MonoBehaviour
     private Dictionary<Vector3Int, BaseUnit> enemyUnits;
     private BaseUnit selectedUnit;
     private Vector3Int selectedUnitPos;
+    private Vector3Int targetTile;
 
     // Start is called before the first frame update
     void Start()
@@ -58,13 +60,22 @@ public class MapManager : MonoBehaviour
         
         if (worldMap.HasTile(mouseGridPos))
         {
-            if (!mouseGridPos.Equals(prevMousePos))
+            if (!mouseGridPos.Equals(prevMousePos) && !GameManager.Instance.UIOpen && !GameManager.Instance.listeningForTarget)
             {
                 interactiveMap.SetTile(prevMousePos, null);
                 interactiveMap.SetTile(mouseGridPos, hoverTile);
                 prevMousePos = mouseGridPos;
                 lastMousePosInBounds = mouseGridPos;
                 pathMap.ClearAllTiles();
+
+                if (selectedUnit != null)
+                {
+                    List<Vector3Int> path = GameManager.Instance.PathFinder.FindPath(selectedUnitPos, mouseGridPos, selectedUnit);
+                    foreach (Vector3Int step in path)
+                    {
+                        pathMap.SetTile(step, pathTile);
+                    }
+                }
             }
         }
         else
@@ -74,18 +85,9 @@ public class MapManager : MonoBehaviour
 
         if(selectedUnit)
         {
-            List<Vector3Int> range = GameManager.Instance.rangeFinder.FindRange(selectedUnitPos, selectedUnit.GetMoveRange(), selectedUnit);
-            foreach(Vector3Int tile in range)
-            {
-                overlayMap.SetTile(tile, allyOverlayMoveTile);
-            }
-            List<Vector3Int> path = GameManager.Instance.PathFinder.FindPath(selectedUnitPos, mouseGridPos, selectedUnit);
-            foreach (Vector3Int step in path)
-            {
-                pathMap.SetTile(step, pathTile);
-            }
+            
         }
-        else
+        else if(overlayMap.ContainsTile(allyOverlayMoveTile))
         {
             overlayMap.ClearAllTiles();
             pathMap.ClearAllTiles();
@@ -116,6 +118,17 @@ public class MapManager : MonoBehaviour
         TileBase tile = worldMap.GetTile(pos);
         return tileData[tile].IsNavigable();
     }
+
+    public void SelectTargetTile(Vector3Int pos)
+    {
+        targetTile = pos;
+    }
+
+    public Vector3Int GetTargetTile()
+    {
+        return targetTile;
+    }
+
     #region Adding/Removing/Updating Units
     public void AddAllyUnit(Vector3Int pos, BaseUnit unit)
     {
@@ -156,6 +169,7 @@ public class MapManager : MonoBehaviour
         else print("No unit to update");
     }
     #endregion
+
     #region Unit Checking
     public bool IsUnit(Vector3Int pos)
     {
@@ -171,11 +185,21 @@ public class MapManager : MonoBehaviour
         return enemyUnits.ContainsKey(pos);
     }
 
+    public bool IsOtherFaction(BaseUnit unit, BaseUnit otherUnit)
+    {
+        if (unit == null || otherUnit == null)
+            return false;
+
+        if (unit.GetType() == otherUnit.GetType())
+            return false;
+        else return true;
+    }
     public BaseUnit GetSelectedUnit()
     {
         return selectedUnit;
     }
     #endregion
+
     #region Unit Info
     public BaseUnit GetUnitAt(Vector3Int pos)
     {
@@ -196,7 +220,38 @@ public class MapManager : MonoBehaviour
         return enemyUnits;
     }
 
+    // Checks if ANY enemy is in attack range
+    public bool EnemyInAttackRange(Vector3Int pos, int minAttackRange, int maxAttackRange)
+    {
+        List<Vector3Int> AttackRange = GameManager.Instance.rangeFinder.FindRangeRadius(pos, minAttackRange, maxAttackRange, selectedUnit, false);
+        foreach(Vector3Int tile in AttackRange)
+        {
+            if (enemyUnits.ContainsKey(tile))
+                return true;
+        }
+        return false;
+    }
+
+    // Checks if target is in attack range of selected unit
+    public bool EnemyInAttackRange(BaseUnit target)
+    {
+        if (target == null)
+            return false;
+        List<Vector3Int> attackRange = GameManager.Instance.rangeFinder.FindRangeRadius(targetTile, selectedUnit.minAttackRange, selectedUnit.maxAttackRange, selectedUnit, false);
+        if (attackRange.Contains(target.GetTile()))
+            return true;
+        else return false;
+    }
+
+    public bool InSelectedUnitMoveRange(Vector3Int pos)
+    {
+        List<Vector3Int> moveRange = GameManager.Instance.rangeFinder.FindRange(selectedUnitPos, selectedUnit.GetMoveRange(), selectedUnit);
+        if (moveRange.Contains(pos))
+            return true;
+        else return false;
+    }
     #endregion
+
     #region Unit Controls
     public void SelectUnit(Vector3Int pos)
     {
@@ -211,6 +266,7 @@ public class MapManager : MonoBehaviour
     public void DeselectUnit()
     {
         selectedUnit = null;
+        ClearMoveAttackTiles();
     }
 
     public void MoveSelectedUnit(Vector3Int pos)
@@ -218,11 +274,27 @@ public class MapManager : MonoBehaviour
         BaseUnit unit = selectedUnit;
         DeselectUnit();
         List<Vector3Int> travelPath = GameManager.Instance.PathFinder.FindPath(selectedUnitPos, pos, unit);
-        if(travelPath.Count-1 > unit.GetMoveRange())
+        List<Vector3Int> travelRange = GameManager.Instance.rangeFinder.FindRange(selectedUnitPos, unit.GetMoveRange(), unit);
+        if(travelPath.Count-1 > unit.GetMoveRange() || !travelRange.Contains(pos))
         {
             return;
         }
         StartCoroutine(unit.MovePosition(travelPath));
+    }
+
+    // Pos = Where the unit should move to
+    // Target = The unit to attack
+    public void MoveAttack(Vector3Int pos, BaseUnit target)
+    {
+        BaseUnit unit = selectedUnit;
+        DeselectUnit();
+        List<Vector3Int> travelPath = GameManager.Instance.PathFinder.FindPath(selectedUnitPos, pos, unit);
+        List<Vector3Int> travelRange = GameManager.Instance.rangeFinder.FindRange(selectedUnitPos, unit.GetMoveRange(), unit);
+        if (travelPath.Count - 1 > unit.GetMoveRange() || !travelRange.Contains(pos))
+        {
+            return;
+        }
+        StartCoroutine(unit.MoveAttack(travelPath, target));
     }
     #endregion
 
@@ -232,7 +304,48 @@ public class MapManager : MonoBehaviour
         if (worldMap.HasTile(mouseGridPos))
         {
             TileBase clickedTile = worldMap.GetTile(mouseGridPos);
-            print("Position" + mouseGridPos + ", Move Cost:" + tileData[clickedTile].GetMoveCost() + ", Has unit: " + IsUnit(mouseGridPos) + "Unit: " + GetUnitAt(mouseGridPos));
+           // print("Position" + mouseGridPos + ", Move Cost:" + tileData[clickedTile].GetMoveCost() + ", Has unit: " + IsUnit(mouseGridPos) + "Unit: " + GetUnitAt(mouseGridPos));
         }
+    }
+
+    public void ShowMoveAttackRange(Vector3Int pos)
+    {
+        BaseUnit unit = GetUnitAt(pos);
+        if (unit == null)
+        {
+            return;
+        }
+
+        int unitMoveRange = selectedUnit.GetMoveRange();
+        List<Vector3Int> moveRange = GameManager.Instance.rangeFinder.FindRange(selectedUnitPos, unitMoveRange, selectedUnit);
+        List<Vector3Int> attackRange = GameManager.Instance.rangeFinder.FindRangeRadius(selectedUnitPos, unitMoveRange, unitMoveRange + selectedUnit.GetMaxAttackRange(), selectedUnit, true);
+        foreach (Vector3Int tile in moveRange)
+        {
+            overlayMap.SetTile(tile, allyOverlayMoveTile);
+        }
+        foreach (Vector3Int tile in attackRange)
+        {
+            overlayMap.SetTile(tile, allyOverlayAttackTile);
+        }
+    }
+
+    public void ShowAttackTiles(Vector3Int pos, BaseUnit unit)
+    {
+        if (unit == null)
+        {
+            return;
+        }
+
+        List<Vector3Int> attackRange = GameManager.Instance.rangeFinder.FindRangeRadius(pos, unit.GetMinAttackRange(), unit.GetMaxAttackRange(), unit, false);
+        foreach (Vector3Int tile in attackRange)
+        {
+            overlayMap.SetTile(tile, allyOverlayAttackTile);
+        }
+    }
+
+    public void ClearMoveAttackTiles()
+    {
+        overlayMap.ClearAllTiles();
+        pathMap.ClearAllTiles();
     }
 }
