@@ -553,6 +553,82 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 561690200}
   m_CullTransparentMesh: 1
+--- !u!1 &561707082
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 561707083}
+  - component: {fileID: 561707085}
+  - component: {fileID: 561707084}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &561707083
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 561707082}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 899219416}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -169, y: -7}
+  m_SizeDelta: {x: 871.2039, y: 727}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &561707084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 561707082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: b06bbae8acb831b4abedcbfe7617c437, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &561707085
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 561707082}
+  m_CullTransparentMesh: 1
 --- !u!1 &773063598
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,7 +666,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 206, y: 142}
+  m_AnchoredPosition: {x: 271, y: 142}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &773063600
@@ -794,6 +870,7 @@ RectTransform:
   - {fileID: 561690201}
   - {fileID: 1372009856}
   - {fileID: 773063599}
+  - {fileID: 561707083}
   - {fileID: 1010411607}
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -836,11 +913,11 @@ RectTransform:
   - {fileID: 324944}
   - {fileID: 1556511914}
   m_Father: {fileID: 899219416}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 204, y: -126.18}
+  m_AnchoredPosition: {x: 271, y: -126.19}
   m_SizeDelta: {x: 557, y: 474.63}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1010411608
@@ -863,7 +940,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8b7379fedc624ab46bc39aaa400e8dbe, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cbcdfc136d657214cb01885f7042bd91, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -920,7 +997,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 204, y: 257}
+  m_AnchoredPosition: {x: 271, y: 258}
   m_SizeDelta: {x: 214.1768, y: 119.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1372009857
@@ -1060,12 +1137,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a37d826cc70ad3b4c810ad1e7cf3b9a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogue2:
-    name: Lyra
-    sentences:
-    - Hi! Nice to meet you, Fiona!
-    - Would you be kind enough to join my journy?
-    - You are very kind!
 --- !u!1 &1556511911
 GameObject:
   m_ObjectHideFlags: 0
