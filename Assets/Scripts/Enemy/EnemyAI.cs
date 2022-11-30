@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -8,6 +9,10 @@ using static UnityEngine.UI.CanvasScaler;
 
 public class EnemyAI : MonoBehaviour
 {
+
+    public GameObject _EventObject;
+    private TaranEvent _TaranEvent;
+    
 
     [System.Serializable]
     public struct Units{
@@ -33,8 +38,10 @@ public class EnemyAI : MonoBehaviour
 
     private void Awake()
     {
+        _TaranEvent = _EventObject.GetComponent<TaranEvent>();
         //init Lists of allys and enemys
         buildList();
+
 
         //MoveAttack(attacker, targeter);
 
@@ -64,11 +71,13 @@ public class EnemyAI : MonoBehaviour
         {
             UnitHeadToUnitAI(EnemyList[i].baseunit);
             yield return new WaitForSeconds(movementFrequency);
-            yield return new WaitUntil(() => GameManager.Instance.state == GameState.EnemyTurn);
+
         }
+        //this uncontrollable character will move to the house on the left top for the event
+        _TaranEvent.TaranMovement();
 
+        //yield return new WaitUntil(() => GameManager.Instance.state == GameState.EnemyTurn);
 
-   
 
         isAIComplete = true;
         GameManager.Instance.state = GameState.PlayerTurn;
