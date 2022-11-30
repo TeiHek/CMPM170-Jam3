@@ -44,6 +44,9 @@ public class EnemyAI : MonoBehaviour
     //  wait second will be used for pause
     IEnumerator runAI(float waitTime)
     {
+
+        isAIComplete = false;
+
         //rebuild the list to remove all inactive cases
         buildList();
 
@@ -55,6 +58,7 @@ public class EnemyAI : MonoBehaviour
         }
 
         isAIComplete = true;
+        GameManager.Instance.state = GameState.PlayerTurn;
     }
 
 
