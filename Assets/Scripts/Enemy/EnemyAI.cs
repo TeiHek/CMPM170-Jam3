@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
+using static UnityEngine.UI.CanvasScaler;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -36,13 +39,61 @@ public class EnemyAI : MonoBehaviour
     // in case u don't know my rules, but only functions will be called in Start/Awake/Update
     // helper functions only called in function
 
+    public BaseUnit attacker;
+    public BaseUnit targeter;
+
+    private void Start()
+    {
+        MoveAttack(attacker, targeter);
+    }
+
+
+    // attacker = the Unit that is attacking
+    // pos = Where the unit should move to
+    // target = The unit to attack
+    public void MoveAttack(BaseUnit attacker, BaseUnit target)
+    {
+        int attackRange = attacker.maxAttackRange;
+        int moveRange = attacker.moveRange;
+        List<Vector3Int> travelPath = GameManager.Instance.PathFinder.FindPath(attacker.GetTile(), target.GetTile(), attacker);
+
+        Debug.Log(attacker.GetTile());
+        Debug.Log(target.GetTile());
+        Debug.Log(travelPath.Count);
+
+        if (travelPath.Count <= attackRange)
+        {
+            //attack if it's on range
+            Debug.Log("on range");
+        }
+        else
+        {
+            //move first then attack if it's out of range before attack
+            Debug.Log("out of range");
+        }
+
+
+        //if (travelPath.Count - 1 > target.GetMoveRange())
+        //{
+        //    return;
+        //}
+        //StartCoroutine(attacker.MoveAttack(travelPath, target));
+    }
+
+
+
+
+
+
     //this bool will determine if the all ai movement is complete
-    public bool isAIComplete = false;
+    [HideInInspector]public bool isAIComplete = false;
+
+
 
     // this functions will apply movement and attack on all Enemy units 
     //  rules: enemy will find closest player's units and get close to it, once it appoach the attack arange, it attacks
     //  wait second will be used for pause
-    IEnumerator runAI(float waitTime)
+    IEnumerator runAI()
     {
 
         isAIComplete = false;
@@ -61,12 +112,9 @@ public class EnemyAI : MonoBehaviour
         GameManager.Instance.state = GameState.PlayerTurn;
     }
 
-
-    [Tooltip("Use this because I don't how when the moving is end")]
-    [SerializeField] float movingWaitTime;
     public void AIProcess()
     {
-        StartCoroutine(runAI(movingWaitTime));
+        StartCoroutine(runAI());
     }
 
 
