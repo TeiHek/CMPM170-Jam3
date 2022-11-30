@@ -18,7 +18,7 @@ public class MoveButton : MonoBehaviour
 
     public void OnClick()
     {
-        print("attempting move to " + GameManager.Instance.MapManager.GetTargetTile());
+        //print("attempting move to " + GameManager.Instance.MapManager.GetTargetTile());
         GameManager.Instance.MapManager.MoveSelectedUnit(GameManager.Instance.MapManager.GetTargetTile());
         GameManager.Instance.UIMenuController.HideActionButtons();
     }
