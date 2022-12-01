@@ -39,7 +39,11 @@ public class EnemyAI : MonoBehaviour
 
     private void Awake()
     {
-        _TaranEvent = _EventObject.GetComponent<TaranEvent>();
+        if(_EventObject != null)
+        {
+            _TaranEvent = _EventObject.GetComponent<TaranEvent>();
+        }
+
         //init Lists of allys and enemys
         buildList();
 
@@ -75,8 +79,12 @@ public class EnemyAI : MonoBehaviour
             yield return new WaitUntil(() => GameManager.Instance.state == GameState.EnemyTurn);
 
         }
-        //this uncontrollable character will move to the house on the left top for the event
-        _TaranEvent.TaranMovement();
+        if(_EventObject != null)
+        {
+            //this uncontrollable character will move to the house on the left top for the event
+            _TaranEvent.TaranMovement();
+        }
+
 
         yield return new WaitForSeconds(movementFrequency);
         isAIComplete = true;

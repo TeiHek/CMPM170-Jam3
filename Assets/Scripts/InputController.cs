@@ -74,19 +74,26 @@ public class InputController : MonoBehaviour
     private void TryLeftClick()
     {
         GameManager.Instance.MapManager.DebugClick();
-        if(GameManager.Instance.state == GameState.PlayerTurn)
+       // SoundManager.PlaySound("sfx_MouseClickGood", 1);
+
+
+        if (GameManager.Instance.state == GameState.PlayerTurn)
         {
+  
             Vector3Int pos = GameManager.Instance.MapManager.GetMousePosition();
             // Ensure mouse is in bounds before trying any action
             if(!GameManager.Instance.MapManager.IsInBounds(pos))
             {
+
                 return;
             }
             BaseUnit selectedUnit = GameManager.Instance.MapManager.GetSelectedUnit();
 
+
             // Select an enemy to attack, deselect if target is out of range or not an enemy
             if (GameManager.Instance.listeningForTarget)
             {
+                SoundManager.PlaySound("sfx_MouseClickGood", 1);
                 GameManager.Instance.listeningForTarget = false;
                 BaseUnit unit = GameManager.Instance.MapManager.GetUnitAt(pos);
                 if (GameManager.Instance.MapManager.EnemyInAttackRange(unit))
@@ -99,10 +106,12 @@ public class InputController : MonoBehaviour
             // Actions if a unit is selected
             else if (selectedUnit != null && !GameManager.Instance.UIOpen)
             {
+    
                 // Click on another unit after first selection or tile unit cannot navigate to
                 if ( (GameManager.Instance.MapManager.IsUnit(pos) && GameManager.Instance.MapManager.GetUnitAt(pos) != GameManager.Instance.MapManager.GetSelectedUnit()) || 
                      !GameManager.Instance.MapManager.IsNavigable(pos) || !GameManager.Instance.MapManager.InSelectedUnitMoveRange(pos))
                 {
+                    SoundManager.PlaySound("sfx_MouseClick", 1);
                     print("Deselect");
                     // Deselect Unit
                     GameManager.Instance.MapManager.DeselectUnit();
@@ -117,6 +126,7 @@ public class InputController : MonoBehaviour
             // Check if allied unit and has not acted yet
             else if(GameManager.Instance.MapManager.IsAllyUnit(pos) && GameManager.Instance.MapManager.GetUnitAt(pos).ableToAct)
             {
+                SoundManager.PlaySound("sfx_MouseClickGood", 1);
                 //print("Selected");
                 GameManager.Instance.MapManager.SelectUnit(pos);
                 GameManager.Instance.MapManager.ShowMoveAttackRange(pos);

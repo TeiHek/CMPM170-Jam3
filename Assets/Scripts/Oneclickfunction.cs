@@ -16,6 +16,7 @@ public class Oneclickfunction : MonoBehaviour
     }
 
     private void Click2(){
+        SoundManager.PlaySound("sfx_MouseButton", 1);
         DoubleClick.Invoke();
     }    
 }

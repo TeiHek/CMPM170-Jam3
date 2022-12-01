@@ -17,6 +17,7 @@ public class ESCexit : MonoBehaviour
     void Update()
     {
         if(Input.GetKeyDown("escape")){
+            SoundManager.PlaySound("sfx_MouseButton", 1);
             escexit2();
         }
     }

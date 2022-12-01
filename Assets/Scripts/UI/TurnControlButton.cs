@@ -25,15 +25,16 @@ public class TurnControlButton : MonoBehaviour
     {
         button1.enabled = true;
         button2.enabled = true;
+       
     }
 
     public void Button_TurnControl()
     {
+
         button1.enabled = false;
         //do something
+        SoundManager.PlaySound("sfx_MouseButton", 1);
         GameManager.Instance.ProcessEndTurn();
-
-
         button1.enabled = true;
     }
 
@@ -42,8 +43,8 @@ public class TurnControlButton : MonoBehaviour
     {
 
         button2.enabled = false;
-        //dosomething
-
+        SoundManager.PlaySound("sfx_MouseButton", 1);
+        Application.Quit();
         button2.enabled = true;
 
 

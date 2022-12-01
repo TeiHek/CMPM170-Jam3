@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting.InputSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class EndGame : MonoBehaviour
+public class EndGame2 : MonoBehaviour
 {
     [SerializeField] bool cheat;
     [SerializeField] GameObject _AiObject;
@@ -20,7 +20,6 @@ public class EndGame : MonoBehaviour
     //[SerializeField] bool ifAllAllyDied;
     //[Tooltip("When this is on, trigger end game scene when all Enemy died.")]
     //[SerializeField] bool ifAllEnemyDied;
-
 
     int outputTime = 0;
 
@@ -61,7 +60,6 @@ public class EndGame : MonoBehaviour
         if (outputTime == 0)
         {
             StartCoroutine(fadeout());
-            Debug.Log("bad ending");
         }
     }
 
@@ -71,7 +69,6 @@ public class EndGame : MonoBehaviour
         {
             fadingObject.SetActive(true);
             anim.Play("Fading");
-
             Debug.Log("bad ending");
             Application.Quit();
         }
@@ -120,7 +117,6 @@ public class EndGame : MonoBehaviour
         anim.Play("Fading");
         yield return new WaitForSeconds(3f);
         fadingObject.SetActive(false);
-        SceneManager.LoadScene("02_SecondDialogue");
+        Application.Quit();
     }
-
 }

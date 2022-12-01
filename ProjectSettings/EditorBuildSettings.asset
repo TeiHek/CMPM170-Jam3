@@ -5,7 +5,19 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/RandyTestSceneTilemapMoveCost.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/00_Startdialogue.unity
+    guid: cc6b799c8c038f7448737db907b0be9e
+  - enabled: 1
+    path: Assets/Scenes/01_mainScene.unity
+    guid: df142e19d7e68a147bf77aadd69c952b
+  - enabled: 1
+    path: Assets/Scenes/02_SecondDialogue.unity
+    guid: 5c1d8633a84ab8843ac2e0cb8a2c37f3
+  - enabled: 1
+    path: Assets/Scenes/03_secondScene 1.unity
+    guid: 14945a53ace64cc47835a9783b12f99b
   m_configObjects: {}

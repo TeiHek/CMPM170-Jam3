@@ -309,6 +309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueText: {fileID: 1556511912}
+  ToScene: 01_mainScene
 --- !u!4 &393022929
 Transform:
   m_ObjectHideFlags: 0
@@ -624,6 +625,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 561690200}
   m_CullTransparentMesh: 1
+--- !u!1001 &572526140
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7951996281084726528, guid: 1296d6cf57f16e0419acefff3f431867, type: 3}
+      propertyPath: m_Name
+      value: SoundManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7951996281084726543, guid: 1296d6cf57f16e0419acefff3f431867, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7951996281084726543, guid: 1296d6cf57f16e0419acefff3f431867, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7951996281084726543, guid: 1296d6cf57f16e0419acefff3f431867, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7951996281084726543, guid: 1296d6cf57f16e0419acefff3f431867, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7951996281084726543, guid: 1296d6cf57f16e0419acefff3f431867, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7951996281084726543, guid: 1296d6cf57f16e0419acefff3f431867, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7951996281084726543, guid: 1296d6cf57f16e0419acefff3f431867, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7951996281084726543, guid: 1296d6cf57f16e0419acefff3f431867, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7951996281084726543, guid: 1296d6cf57f16e0419acefff3f431867, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7951996281084726543, guid: 1296d6cf57f16e0419acefff3f431867, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7951996281084726543, guid: 1296d6cf57f16e0419acefff3f431867, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1296d6cf57f16e0419acefff3f431867, type: 3}
 --- !u!1 &773063598
 GameObject:
   m_ObjectHideFlags: 0
@@ -1091,23 +1149,17 @@ MonoBehaviour:
   dialogue:
     name: Fiona
     sentences:
-    - "Arianelle:\r\n\tEw. At least those beasts were not hard to handle, but I sense
-      something is not going right.\r"
-    - "Lyra:\t\r\n\tMaybe they just got a message about us leaving this area, they
-      lacked skills, and couldn't fight in front of us.\r"
-    - "Arianelle:\r\n\tThis won't be a coincidence. I am sure about it. (Arianelle
-      is trying to search the area.)\r"
-    - "Arianelle: \r\n\t(10 minutes later) !! Lyra !!  Look at what I found.\r"
-    - "Lyra:\t\r\n\tNo way!! Where is Taran. Anyone seen him? We have to ask him
-      face to face!\r"
-    - "WorldVoice:\r\n\tTaran slowly walks out from the building and laughs in front
-      of the Knights.\r"
-    - "Taran:\r\n\tToo late ladies, we could have had a nice talk if you were able
-      to find out a little bit easier.\r"
-    - "Taran:\r\n\tLook at this staff those barbarians gave me. With this on my hand,
-      why should I listen to you damn braindead people. Now taste my power my lady!\r"
-    - "Arianelle: \r\n\tou!!\r"
-    - "Lyra:\t\r\n\tArianelle! Taran you little! You will pay for this!\r"
+    - "Lyra:\t\r\n\tHurry up everyone! We are almost there!\r"
+    - "Arianelle:\r\n\tI totally didn't expect an emergency mission like this...
+      What do you think Lyra, there is no reason for the Xulu tribe to attack the
+      village at this time.\r"
+    - "Lyra:\r\n\tYeah, it's weird. But to be honest, I don't think that much about
+      Arianelle. The Knights of Verna swore to protect their people, that's why we
+      are here. \r"
+    - "Arianelle:\r\n\tThat's .. true. But they chose to attack when we were out
+      for another mission. This is way too sudden, Can it be.......\r"
+    - "Lyra:\t\r\n\tWatch Out everyone! We can see them, get ready to battle! For
+      the honor of the empire!!\r"
 --- !u!1 &1556511911
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,9 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static EnemyAI;
 
 public abstract class BaseUnit : MonoBehaviour
 {
+    public enum AttackType {
+        Arrow, Fire, Lance, Metal, Thunder, None
+    };
+
+    public AttackType Type;
+
     public int maxHp;
     public int hp;
     public int moveRange;
@@ -13,16 +20,17 @@ public abstract class BaseUnit : MonoBehaviour
     public bool ableToAct;
     public TileAffinity affinity;
 
+
+
     // Start is called before the first frame update
     public virtual void Start()
     {
-        
     }
 
     // Update is called once per frame
     public virtual void Update()
     {
-        
+
     }
 
     public virtual void AddUnit()
@@ -95,10 +103,43 @@ public abstract class BaseUnit : MonoBehaviour
         }
     }
 
+    //helper function that will play sound
+    void playAttackSound()
+    {
+        if (this.Type == AttackType.Arrow)
+        {
+            SoundManager.PlaySound("sfx_HitArrow", 1);
+            //PlaySound("sfx_MouseButton", 1);
+        }
+        else if (this.Type == AttackType.Fire)
+        {
+            SoundManager.PlaySound("sfx_HitFire", 1);
+        }
+        else if (this.Type == AttackType.Lance)
+        {
+            SoundManager.PlaySound("sfx_HitLance", 1);
+        }
+        else if (this.Type == AttackType.Metal)
+        {
+            SoundManager.PlaySound("sfx_HitMetal", 1);
+        }
+        else if (this.Type == AttackType.Thunder)
+        {
+            SoundManager.PlaySound("sfx_HitThunder", 1);
+            Debug.Log("ss");
+        }
+        else
+        {
+            Debug.Log("Type not defined, no sfx will be played");
+        }
+
+    }
     public IEnumerator MoveAttack(List<Vector3Int> path, BaseUnit target)
     {
         yield return StartCoroutine(MovePosition(path));
+        playAttackSound();
         yield return StartCoroutine(AttackUnit(target));
+
     }
 
     public void ReceiveDamage(int damage)
@@ -127,5 +168,7 @@ public abstract class BaseUnit : MonoBehaviour
     {
         GameManager.Instance.MapManager.UpdateUnitLocation(this, prevPos, newPos);
     }
+
+
 
 }
