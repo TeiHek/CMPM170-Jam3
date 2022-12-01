@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool UIOpen;
     [HideInInspector] public bool listeningForTarget;
 
-    // This will eventually become the script to track game state. Don't have that yet though
+    public EnemyAI enemyAI;
     [Header("Assigned at runtime")]
     public MapManager MapManager;
     public InputController Controller;
@@ -48,6 +48,13 @@ public class GameManager : MonoBehaviour
         
     }
 
+    public IEnumerator EndTurn(GameState nextState)
+    {
+        yield return StartCoroutine(UIMenuController.TurnFade(nextState));
+        state = nextState;
+        if (nextState == GameState.EnemyTurn)
+            enemyAI.AIProcess();
+    }
 }
 
 public enum GameState

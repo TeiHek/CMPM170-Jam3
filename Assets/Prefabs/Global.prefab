@@ -259,6 +259,7 @@ MonoBehaviour:
   state: 0
   UIOpen: 0
   listeningForTarget: 0
+  enemyAI: {fileID: 0}
   MapManager: {fileID: 0}
   Controller: {fileID: 0}
   UIMenuController: {fileID: 0}
@@ -499,3 +500,5 @@ MonoBehaviour:
   moveButton: {fileID: 7925480748193856813, guid: 6fcf15ea3fb2d854da0c3ccc1767c8f5, type: 3}
   attackButton: {fileID: 5518961329365897880, guid: 3561c21db5b634d4cb7cee980e1ac42b, type: 3}
   cancelButton: {fileID: 622739823160165306, guid: af2ebd5439936c4469e41cda031e14b1, type: 3}
+  turnFadeEffect: {fileID: 2671724479201557943, guid: e0d09424a580c6946b8b03318149209a, type: 3}
+  screenAlphaRate: 1
