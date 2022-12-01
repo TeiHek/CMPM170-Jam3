@@ -31,8 +31,7 @@ public class TurnControlButton : MonoBehaviour
     {
         button1.enabled = false;
         //do something
-        StartCoroutine(GameManager.Instance.EndTurn(GameState.EnemyTurn));
-        Script_EnemyAI.AIProcess();
+        GameManager.Instance.ProcessEndTurn();
 
 
         button1.enabled = true;

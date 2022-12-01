@@ -112,6 +112,12 @@ public class MapManager : MonoBehaviour
         return tileData[tile].GetMoveCost();
     }
 
+    public TileAffinity GetTileAffinity(Vector3Int pos)
+    {
+        TileBase tile = worldMap.GetTile(pos);
+        return tileData[tile].GetTileAffinity();
+    }
+
     // Get whether or not a tile is navigable at a given position
     public bool IsNavigable(Vector3Int pos)
     {
@@ -198,6 +204,12 @@ public class MapManager : MonoBehaviour
     {
         return selectedUnit;
     }
+
+    public Dictionary<Vector3Int, BaseUnit> GetAllyUnits()
+    {
+        return allyUnits;
+    }
+
     #endregion
 
     #region Unit Info
@@ -280,6 +292,7 @@ public class MapManager : MonoBehaviour
             return;
         }
         StartCoroutine(unit.MovePosition(travelPath));
+        unit.ableToAct = false;
     }
 
     // Pos = Where the unit should move to
@@ -295,6 +308,7 @@ public class MapManager : MonoBehaviour
             return;
         }
         StartCoroutine(unit.MoveAttack(travelPath, target));
+        unit.ableToAct = false;
     }
     #endregion
 

@@ -10,6 +10,7 @@ public class TileData : ScriptableObject
     [Tooltip("Check this if a unit should be able to stand on this tile")]
     [SerializeField] private bool navigable;
     [SerializeField] private int moveCost;
+    [SerializeField] private TileAffinity affinity;
 
     public int GetMoveCost()
     {
@@ -19,5 +20,10 @@ public class TileData : ScriptableObject
     public bool IsNavigable()
     {
         return navigable;
+    }
+
+    public TileAffinity GetTileAffinity()
+    {
+        return affinity;
     }
 }
