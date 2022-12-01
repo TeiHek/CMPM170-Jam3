@@ -270,7 +270,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Character states:'
+  m_Text: 'Character states:
+
+    Hp = 14; Move Range = 2; Min Attack Range = 1;
+    Max Attack Range = 3; Attack Damage = 7.'
 --- !u!222 &23409109
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -530,7 +533,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 21.9, y: -68.634}
+  m_AnchoredPosition: {x: 26.7, y: -68.634}
   m_SizeDelta: {x: 78.1533, y: 38.6943}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &76466722
@@ -701,8 +704,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -16.257, y: 0.00062194443}
-  m_SizeDelta: {x: 312.8456, y: 288.3159}
+  m_AnchoredPosition: {x: -16.257, y: -111.04578}
+  m_SizeDelta: {x: 312.8456, y: 533.5801}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &83911041
 MonoBehaviour:
@@ -741,7 +744,11 @@ MonoBehaviour:
     most largest, rivaling territories of the Verna kingdom. Cold and heartless,
     his motives are unclear. Due to the disproportionate amount of resources & advancements
     the Xulu have in comparison to the Verna Empire, raids are frequently led against
-    smaller territories around the outskirts of the empire."
+    smaller territories around the outskirts of the empire.\nTerrain Bonus:\r\nLiving
+    in the Outer Territories meant surviving in rough and unforgiving environments.
+    Moreover, with his cold & heartless nature, Drax is capable of fighting in any
+    type of terrain; whether it be an open field, within the heart of the mountains,
+    deep inside the forests, or in the middle of a village.\r"
 --- !u!222 &83911042
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -975,8 +982,8 @@ RectTransform:
   m_Father: {fileID: 1605434535}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.11775451}
-  m_AnchorMax: {x: 1, y: 0.9999992}
+  m_AnchorMin: {x: 0, y: 0.5011337}
+  m_AnchorMax: {x: 1, y: 0.9999994}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1051,7 +1058,7 @@ RectTransform:
   m_Father: {fileID: 495556300}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.40428245}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -1165,7 +1172,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Character states:'
+  m_Text: 'Character states:
+
+    Hp = 20; Move Range = 3; Min Attack Range = 1;
+    Max Attack Range = 1; Attack Damage = 1.'
 --- !u!222 &131593129
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1174,6 +1184,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 131593126}
   m_CullTransparentMesh: 1
+--- !u!1 &140738374
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 140738375}
+  - component: {fileID: 140738376}
+  m_Layer: 0
+  m_Name: healthnumber
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &140738375
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140738374}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2043452130067652540}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &140738376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140738374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7baf8f4c15705444a4e8d76521225e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextHealthUI: {fileID: 1952299281}
 --- !u!1 &144253334
 GameObject:
   m_ObjectHideFlags: 0
@@ -1352,8 +1407,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -16.257, y: -20.787392}
-  m_SizeDelta: {x: 312.8456, y: 353.0653}
+  m_AnchoredPosition: {x: -16.257, y: -156.45288}
+  m_SizeDelta: {x: 312.8456, y: 624.3964}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &156877831
 MonoBehaviour:
@@ -1393,7 +1448,11 @@ MonoBehaviour:
     calm demeanor \u2014 which she feels is necessary in order to keep her powers
     under control. She learned this early on, after accidentally setting a village
     on fire as a child; causing her to be locked up, and kept under Orane\u2019s
-    Tower of Magic\u2019s scrutiny and supervision ever since."
+    Tower of Magic\u2019s scrutiny and supervision ever since.\nTerrain Bonus:\r\nLike
+    other mages, Kalinda performs the best in areas with great fortitude, or when
+    near other allies; so she can cast her spells without remaining vulnerable to
+    her enemies. However, she prefers to not fight where innocent civilians may reside,
+    in fear of losing control of her powers and burning everything to ashes.\r"
 --- !u!222 &156877832
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1637,6 +1696,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 177273240}
   m_CullTransparentMesh: 1
+--- !u!1 &188445200
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 188445201}
+  - component: {fileID: 188445202}
+  m_Layer: 0
+  m_Name: healthnumber
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &188445201
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188445200}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1546160664}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &188445202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188445200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7baf8f4c15705444a4e8d76521225e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextHealthUI: {fileID: 1154572307}
 --- !u!1 &198672372
 GameObject:
   m_ObjectHideFlags: 0
@@ -1918,8 +2022,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -16.257, y: -16.264381}
-  m_SizeDelta: {x: 312.8456, y: 344.0193}
+  m_AnchoredPosition: {x: -16.257, y: -154.29956}
+  m_SizeDelta: {x: 312.8456, y: 620.0897}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &251528580
 MonoBehaviour:
@@ -1959,7 +2063,10 @@ MonoBehaviour:
     of Xulu tribe\u2019s own. For this, she feels indebted to the Xulus, and treasure
     them as her family. She sees Drax as an older brother, though he is often cold
     and does not seem to hold any signs of emotion. Even so, she will never forget
-    the look in his eyes when he found her\u2026"
+    the look in his eyes when he found her\u2026\nTerrain Bonus:\r\nLiving in the
+    Outer Territories required one to become familiar with the harsh and untamed
+    wilderness. Thus, Arya is dexterous in killing her targets in both thick forests
+    and rigid mountains. Like most archers, however, open fields are her kryptonite.\r"
 --- !u!222 &251528581
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2159,8 +2266,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -16.257, y: -156.40298}
-  m_SizeDelta: {x: 312.8456, y: 624.2965}
+  m_AnchoredPosition: {x: -16.257, y: -229.8638}
+  m_SizeDelta: {x: 312.8456, y: 771.2182}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &262235002
 MonoBehaviour:
@@ -2205,7 +2312,9 @@ MonoBehaviour:
     Argantael, who had also dreamed of becoming a knight one day. Unfortunately,
     it was a dream that was never realized \u2014 due to fatal attacks and skirmishes
     in their territory \u2014 and a dream that Arianelle took on herself, in order
-    to honor his memory & to fulfill it on his behalf."
+    to honor his memory & to fulfill it on his behalf.\nTerrain Bonus:\r\nShe gains
+    strength fighting in open areas, where there aren\u2019t any obstructable objects
+    in her way, and areas for her enemies to hide.\r"
 --- !u!222 &262235003
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2411,7 +2520,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Character states:'
+  m_Text: 'Character states:
+
+    Hp = 18; Move Range = 3; Min Attack Range = 1;
+    Max Attack Range = 2; Attack Damage = 6.'
 --- !u!222 &314580888
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2728,8 +2840,8 @@ RectTransform:
   m_Father: {fileID: 372449752}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.9999949}
+  m_AnchorMin: {x: 0, y: 0.41622633}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2842,7 +2954,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Character states:'
+  m_Text: 'Character states:
+
+    Hp = 19; Move Range = 2; Min Attack Range = 1;
+    Max Attack Range = 2; Attack Damage = 6.'
 --- !u!222 &396997551
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3429,7 +3544,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Character states:'
+  m_Text: 'Character states:
+
+    Hp = 18; Move Range = 3; Min Attack Range = 1;
+    Max Attack Range = 3; Attack Damage = 10.'
 --- !u!222 &456162122
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3717,8 +3835,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -16.257, y: 0.00072296645}
-  m_SizeDelta: {x: 312.8456, y: 265.7246}
+  m_AnchoredPosition: {x: -16.257, y: -96.787796}
+  m_SizeDelta: {x: 312.8456, y: 505.0647}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &522531014
 MonoBehaviour:
@@ -3757,7 +3875,11 @@ MonoBehaviour:
     \u2014 stolen from the elvens \u2014 thrives, powering much of their cities.
     He recently struck a deal with the Xulus, but no one knows for what reason, nor
     the details of their exchange. One thing is clear however: both Verna & Orane
-    are at the brink of war."
+    are at the brink of war.\nTerrain Bonus:\r\nDue to his lack of experience on
+    the battlefield \u2014 having been sheltered within Orane\u2019s imperial palace
+    his entire life \u2014 the only scenery Taran is familiar with is civilian-inhabited
+    areas, such as villages. He would quickly lose sight of the enemy if he were
+    forced to fight within forests or mountains. \r"
 --- !u!222 &522531015
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3875,7 +3997,7 @@ RectTransform:
   m_Father: {fileID: 1927001419}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.33530533}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -4244,7 +4366,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Character states:'
+  m_Text: 'Character states:
+
+    Hp = 30; Move Range = 2; Min Attack Range = 1;
+    Max Attack Range = 1; Attack Damage = 8.'
 --- !u!222 &616973196
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4527,8 +4652,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -16.257, y: -78.521}
-  m_SizeDelta: {x: 312.8456, y: 468.5325}
+  m_AnchoredPosition: {x: -12.703, y: -211.22}
+  m_SizeDelta: {x: 319.9547, y: 733.9395}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &678693343
 MonoBehaviour:
@@ -4570,7 +4695,11 @@ MonoBehaviour:
     blood, sweat, and tears stained the garden that once gave her refuge. The princess,
     caring for Lyra like her own sister, helped her escape into the Verna Empire.
     Desperate to find her true origins and to repay her debt to the elven princess,
-    Lyra set off to join the Imperial Knights of Verna, in the hopes of getting stronger."
+    Lyra set off to join the Imperial Knights of Verna, in the hopes of getting stronger.\nTerrain
+    Bonus:\r\nShe hunts the best within forests and areas with many trees, which
+    provides her both stealth and coverage. On the other hand, it's difficult for
+    Lyra to take aim in open battlefields, where there aren\u2019t many places for
+    her to hide while she focuses in on her targets.\r"
 --- !u!222 &678693344
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -24534,8 +24663,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1423629756}
   m_HandleRect: {fileID: 1423629755}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 0.9999996
+  m_Size: 0.5258992
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -24578,6 +24707,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 715473066}
   m_CullTransparentMesh: 1
+--- !u!1 &717973537
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 717973538}
+  - component: {fileID: 717973539}
+  m_Layer: 0
+  m_Name: healthnumber
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &717973538
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717973537}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 147624412}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &717973539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717973537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7baf8f4c15705444a4e8d76521225e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextHealthUI: {fileID: 76466722}
 --- !u!1 &719939947
 GameObject:
   m_ObjectHideFlags: 0
@@ -25650,8 +25824,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 119456508}
   m_HandleRect: {fileID: 119456507}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1.0000021
+  m_Size: 0.59571755
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -25727,8 +25901,8 @@ RectTransform:
   m_Father: {fileID: 1690624689}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.335179}
-  m_AnchorMax: {x: 1, y: 0.9999994}
+  m_AnchorMin: {x: 0, y: 0.57558525}
+  m_AnchorMax: {x: 1, y: 0.99999344}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -26089,8 +26263,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -16.257, y: 0.00048346585}
-  m_SizeDelta: {x: 312.8456, y: 284.9692}
+  m_AnchoredPosition: {x: -16.257, y: -78.56625}
+  m_SizeDelta: {x: 312.8456, y: 468.6212}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &880304421
 MonoBehaviour:
@@ -26125,13 +26299,14 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Character info:
-
-    A goblin who resides in the unified territories outside
+  m_Text: "Character info:\nA goblin who resides in the unified territories outside
     of Orane and Verna Empires. Due to the lack of food and resources found in the
     Outer Territories, Grekz and others like him have resorted to a life of thievery.
     They are often threatening and dangerous to small villages that reside on the
-    edges of the empires, where raids are constantly initiated.'
+    edges of the empires, where raids are constantly initiated.\nTerrain Bonus:\r\nA
+    life of thievery entails great dexterity in navigating around human villages.
+    Moreover, having lived in the Outer Territories his entire life, spotting prey
+    within thickets and dense forests wouldn\u2019t be a problem, either.\r"
 --- !u!222 &880304422
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -26140,6 +26315,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 880304419}
   m_CullTransparentMesh: 1
+--- !u!1 &885570457
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 885570458}
+  - component: {fileID: 885570459}
+  m_Layer: 0
+  m_Name: healthnumber
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &885570458
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885570457}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2130806943}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &885570459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885570457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7baf8f4c15705444a4e8d76521225e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextHealthUI: {fileID: 831730928}
 --- !u!1 &891206606
 GameObject:
   m_ObjectHideFlags: 0
@@ -26727,8 +26947,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -16.257, y: -81.011375}
-  m_SizeDelta: {x: 312.8456, y: 473.5133}
+  m_AnchoredPosition: {x: -16.257, y: -213.71475}
+  m_SizeDelta: {x: 312.8456, y: 738.92}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &963372995
 MonoBehaviour:
@@ -26770,7 +26990,10 @@ MonoBehaviour:
     an empire that the Elven kingdom detests, after the Empire stole their knowledge
     on magic & inventions. Ellie has a carefree personality, and usually follows
     along with whatever interests her! She doesn\u2019t like violence, and prefers
-    to resolve things peacefully."
+    to resolve things peacefully.\nTerrain Bonus:\r\nHaving traveled around the continent
+    and living with the elves for some time, Ellie knows her way around most Aivrathian
+    forests. However, because of her small body and weak stamina, she has great difficulty
+    exploring the mountains, and has hardly ventured through any during her travels.\r"
 --- !u!222 &963372996
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -26779,6 +27002,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963372993}
   m_CullTransparentMesh: 1
+--- !u!1 &964331793
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 964331794}
+  - component: {fileID: 964331795}
+  m_Layer: 0
+  m_Name: healthnumber
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &964331794
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964331793}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 768047989666498842}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &964331795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964331793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7baf8f4c15705444a4e8d76521225e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextHealthUI: {fileID: 673282874}
 --- !u!1 &974479550
 GameObject:
   m_ObjectHideFlags: 0
@@ -34404,7 +34672,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1834993051}
   m_Direction: 2
   m_Value: 0.9999992
-  m_Size: 0.4989456
+  m_Size: 0.40389344
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -34518,7 +34786,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Character states:'
+  m_Text: 'Character states:
+
+    Hp = 15; Move Range = 3; Min Attack Range = 1;
+    Max Attack Range = 1; Attack Damage = 6.'
 --- !u!222 &1036009059
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -34690,8 +34961,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1277051705}
   m_HandleRect: {fileID: 1277051704}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1.0000024
+  m_Size: 0.6167329
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -34961,7 +35232,12 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Character states:'
+  m_Text: 'Character states:
+
+    Hp = 30; Move Range = 3; Min Attack Range = 1;
+    Max Attack Range = 1; Attack Damage = 10.
+
+'
 --- !u!222 &1049584093
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -35085,8 +35361,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -12.689, y: 0.0001297}
-  m_SizeDelta: {x: 319.98, y: 311.49}
+  m_AnchoredPosition: {x: -12.689, y: -140.40477}
+  m_SizeDelta: {x: 319.98, y: 592.2998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1108743292
 MonoBehaviour:
@@ -35126,7 +35402,10 @@ MonoBehaviour:
     Though she has sworn loyalty to the royal family, Viviane often goes about business
     her own way, and usually dislikes taking orders from others. Even brattish and
     impolite Taran does not dare to order her about \u2014 an easy way to start a
-    bad streak with her."
+    bad streak with her.\nTerrain Bonus:\r\nDue to her lack of experience on the
+    front lines, especially as a mage, Viviane performs the best in areas with great
+    fortitude, or when near other allies. This way, she can focus on casting her
+    spells without having to worry about being vulnerable to her enemies.\r"
 --- !u!222 &1108743293
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -35218,8 +35497,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1418781476}
   m_HandleRect: {fileID: 1418781475}
   m_Direction: 2
-  m_Value: 0.99999154
-  m_Size: 0.9054434
+  m_Value: 0.999999
+  m_Size: 0.50233054
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -35375,8 +35654,8 @@ RectTransform:
   m_Father: {fileID: 1208921709}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.34217206}
-  m_AnchorMax: {x: 1, y: 0.9999994}
+  m_AnchorMin: {x: 0, y: 0.578452}
+  m_AnchorMax: {x: 1, y: 0.99999964}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -35581,6 +35860,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1149277942}
   m_CullTransparentMesh: 1
+--- !u!1 &1152650439
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1152650440}
+  - component: {fileID: 1152650441}
+  m_Layer: 0
+  m_Name: healthnumber
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1152650440
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152650439}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1431617325}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1152650441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152650439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7baf8f4c15705444a4e8d76521225e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextHealthUI: {fileID: 705873938}
 --- !u!1 &1154123671 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6211178981841340185, guid: 211a266c18ba7204280754ab45fa8f20, type: 3}
@@ -35933,8 +36257,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -267.27002, y: -41.493042}
-  m_SizeDelta: {x: 295.46, y: 462.98}
+  m_AnchoredPosition: {x: -261.3231, y: -41.49}
+  m_SizeDelta: {x: 343.8276, y: 462.98}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1245064040
 MonoBehaviour:
@@ -36009,8 +36333,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -16.257, y: 0.0007225934}
-  m_SizeDelta: {x: 312.8456, y: 294.2057}
+  m_AnchoredPosition: {x: -16.257, y: -105.69646}
+  m_SizeDelta: {x: 312.8456, y: 522.882}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1266808440
 MonoBehaviour:
@@ -36049,7 +36373,10 @@ MonoBehaviour:
     lance in order to serve her house and her empire (and totally not because she
     admires Arianelle greatly). She likes to follow along with whatever Arianelle
     does.Though she was not able to attain knighthood, she was granted the honor
-    to serve among the private bodyguards of Verna\u2019s dukedom."
+    to serve among the private bodyguards of Verna\u2019s dukedom.\nTerrain Bonus:\r\nShe
+    performs the best in open areas that hinder the enemy\u2019s ability to run or
+    hide, such as bridges. However, her physical capabilities are heavily weakened
+    in areas with obstructable objects in her way, such as mountains and trees.\r"
 --- !u!222 &1266808441
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -36243,7 +36570,7 @@ RectTransform:
   m_Father: {fileID: 1933074389}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.3832671}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -36911,8 +37238,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 388950783}
   m_HandleRect: {fileID: 388950782}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.9999949
+  m_Value: 1.0000033
+  m_Size: 0.5837737
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -37628,8 +37955,8 @@ RectTransform:
   m_Father: {fileID: 1357227662}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.09455583}
-  m_AnchorMax: {x: 1, y: 0.9999994}
+  m_AnchorMin: {x: 0, y: 0.49766895}
+  m_AnchorMax: {x: 1, y: 0.9999995}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -37704,8 +38031,8 @@ RectTransform:
   m_Father: {fileID: 989817654}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.9999994}
+  m_AnchorMin: {x: 0, y: 0.47410062}
+  m_AnchorMax: {x: 1, y: 0.99999976}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -38099,7 +38426,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Character states:'
+  m_Text: 'Character states:
+
+    Hp = 22; Move Range = 3; Min Attack Range = 1;
+    Max Attack Range = 2; Attack Damage = 9.'
 --- !u!222 &1437288639
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -38933,8 +39263,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 550761591}
   m_HandleRect: {fileID: 550761590}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1.000004
+  m_Size: 0.66469467
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -39262,6 +39592,51 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &1550909931
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1550909932}
+  - component: {fileID: 1550909933}
+  m_Layer: 0
+  m_Name: healthnumber
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1550909932
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550909931}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 219153636}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1550909933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550909931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7baf8f4c15705444a4e8d76521225e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextHealthUI: {fileID: 1311110849}
 --- !u!1 &1561967073
 GameObject:
   m_ObjectHideFlags: 0
@@ -39769,7 +40144,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Character states:'
+  m_Text: 'Character states:
+
+    Hp = 25; Move Range = 3; Min Attack Range = 1;
+    Max Attack Range = 3; Attack Damage = 7.'
 --- !u!222 &1636529757
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -39831,6 +40209,96 @@ MonoBehaviour:
   anim: {fileID: 863267042}
   ifAllAllyDied: 1
   ifAllEnemyDied: 1
+--- !u!1 &1657407265
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1657407266}
+  - component: {fileID: 1657407267}
+  m_Layer: 0
+  m_Name: healthnumber
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1657407266
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657407265}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1022541004}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1657407267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657407265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7baf8f4c15705444a4e8d76521225e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextHealthUI: {fileID: 380358693}
+--- !u!1 &1665488541
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1665488542}
+  - component: {fileID: 1665488543}
+  m_Layer: 0
+  m_Name: healthnumber
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1665488542
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665488541}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1290882406}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1665488543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665488541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7baf8f4c15705444a4e8d76521225e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextHealthUI: {fileID: 1082319196}
 --- !u!1 &1683829988
 GameObject:
   m_ObjectHideFlags: 0
@@ -40226,8 +40694,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 715473069}
   m_HandleRect: {fileID: 846191011}
   m_Direction: 2
-  m_Value: 0.9999983
-  m_Size: 0.66482043
+  m_Value: 0.9999886
+  m_Size: 0.42440823
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -40893,8 +41361,8 @@ RectTransform:
   m_Father: {fileID: 1893505262}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.501054}
-  m_AnchorMax: {x: 1, y: 0.9999996}
+  m_AnchorMin: {x: 0, y: 0.5961061}
+  m_AnchorMax: {x: 1, y: 0.9999995}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -41244,8 +41712,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1131156971}
   m_HandleRect: {fileID: 1131156970}
   m_Direction: 2
-  m_Value: 0.99999833
-  m_Size: 0.6578274
+  m_Value: 0.9999993
+  m_Size: 0.42154762
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -41584,6 +42052,51 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &1891169199
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1891169200}
+  - component: {fileID: 1891169201}
+  m_Layer: 0
+  m_Name: healthnumber
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1891169200
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1891169199}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1505866762}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1891169201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1891169199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7baf8f4c15705444a4e8d76521225e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextHealthUI: {fileID: 1922390539}
 --- !u!1 &1893505261
 GameObject:
   m_ObjectHideFlags: 0
@@ -42478,8 +42991,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 113102683}
   m_HandleRect: {fileID: 113102682}
   m_Direction: 2
-  m_Value: 0.9999934
-  m_Size: 0.8822447
+  m_Value: 0.9999989
+  m_Size: 0.49886575
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -43079,6 +43592,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1703981811}
+  - {fileID: 885570458}
   m_Father: {fileID: 879800431}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
