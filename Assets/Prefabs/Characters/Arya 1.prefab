@@ -190,6 +190,7 @@ MonoBehaviour:
   maxAttackRange: 2
   attackDamage: 6
   ableToAct: 1
+  affinity: 2
 --- !u!1001 &6678880991145249146
 PrefabInstance:
   m_ObjectHideFlags: 0

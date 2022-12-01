@@ -106,6 +106,7 @@ MonoBehaviour:
   maxAttackRange: 2
   attackDamage: 6
   ableToAct: 1
+  affinity: 2
 --- !u!1 &6112443188733548171
 GameObject:
   m_ObjectHideFlags: 0
