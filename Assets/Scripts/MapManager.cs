@@ -16,6 +16,9 @@ public class MapManager : MonoBehaviour
     [SerializeField] private RuleTile pathTile;
     [SerializeField] private Tile allyOverlayMoveTile;
     [SerializeField] private Tile allyOverlayAttackTile;
+    [SerializeField] private Tile enemyOverlayMoveTile;
+    [SerializeField] private Tile enemyOverlayAttackTile;
+
 
     [Header("Tile Data")]
     [SerializeField] private List<TileData> tileDataList;
@@ -67,7 +70,15 @@ public class MapManager : MonoBehaviour
                 prevMousePos = mouseGridPos;
                 lastMousePosInBounds = mouseGridPos;
                 pathMap.ClearAllTiles();
-
+                if ( (overlayMap.ContainsTile(allyOverlayMoveTile) || overlayMap.ContainsTile(enemyOverlayMoveTile)) && selectedUnit == null)
+                {
+                    overlayMap.ClearAllTiles();
+                    pathMap.ClearAllTiles();
+                }
+                if (!GameManager.Instance.UIOpen && selectedUnit == null)
+                {
+                    ShowMoveAttackRange(mouseGridPos);
+                }
                 if (selectedUnit != null)
                 {
                     List<Vector3Int> path = GameManager.Instance.PathFinder.FindPath(selectedUnitPos, mouseGridPos, selectedUnit);
@@ -81,16 +92,6 @@ public class MapManager : MonoBehaviour
         else
         {
             interactiveMap.SetTile(lastMousePosInBounds, null);
-        }
-
-        if(selectedUnit)
-        {
-            
-        }
-        else if(overlayMap.ContainsTile(allyOverlayMoveTile))
-        {
-            overlayMap.ClearAllTiles();
-            pathMap.ClearAllTiles();
         }
     }
 
@@ -330,16 +331,30 @@ public class MapManager : MonoBehaviour
             return;
         }
 
-        int unitMoveRange = selectedUnit.GetMoveRange();
-        List<Vector3Int> moveRange = GameManager.Instance.rangeFinder.FindRange(selectedUnitPos, unitMoveRange, selectedUnit);
-        List<Vector3Int> attackRange = GameManager.Instance.rangeFinder.FindRangeRadius(selectedUnitPos, unitMoveRange, unitMoveRange + selectedUnit.GetMaxAttackRange(), selectedUnit, true);
-        foreach (Vector3Int tile in moveRange)
+        int unitMoveRange = unit.GetMoveRange();
+        List<Vector3Int> moveRange = GameManager.Instance.rangeFinder.FindRange(pos, unitMoveRange, unit);
+        List<Vector3Int> attackRange = GameManager.Instance.rangeFinder.FindRangeRadius(pos, unitMoveRange, unitMoveRange + unit.GetMaxAttackRange(), unit, true);
+        if (IsAllyUnit(pos))
         {
-            overlayMap.SetTile(tile, allyOverlayMoveTile);
+            foreach (Vector3Int tile in moveRange)
+            {
+                overlayMap.SetTile(tile, allyOverlayMoveTile);
+            }
+            foreach (Vector3Int tile in attackRange)
+            {
+                overlayMap.SetTile(tile, allyOverlayAttackTile);
+            }
         }
-        foreach (Vector3Int tile in attackRange)
+        else
         {
-            overlayMap.SetTile(tile, allyOverlayAttackTile);
+            foreach (Vector3Int tile in moveRange)
+            {
+                overlayMap.SetTile(tile, enemyOverlayMoveTile);
+            }
+            foreach (Vector3Int tile in attackRange)
+            {
+                overlayMap.SetTile(tile, enemyOverlayAttackTile);
+            }
         }
     }
 

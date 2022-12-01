@@ -155,6 +155,8 @@ MonoBehaviour:
   pathTile: {fileID: 11400000, guid: 8b1f33dfcfb376645a7f5516c3244446, type: 2}
   allyOverlayMoveTile: {fileID: 11400000, guid: 194068fd56e6bd04b8e0e7ccb1837f39, type: 2}
   allyOverlayAttackTile: {fileID: 11400000, guid: eb29508f8482fba4987756263490eaa3, type: 2}
+  enemyOverlayMoveTile: {fileID: 11400000, guid: dda6179f03fb1964d8dca3bba88d9d31, type: 2}
+  enemyOverlayAttackTile: {fileID: 11400000, guid: 1d83608f042de574495166485dcb3e25, type: 2}
   tileDataList:
   - {fileID: 11400000, guid: f16e3216e1f1b1e42b7d2770f1003f67, type: 2}
   - {fileID: 11400000, guid: ab2d6ec70e27e8b4e8639f0f7db222fb, type: 2}
