@@ -41,12 +41,24 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: BG Tile
+    uniqueID: 2245400451
+    locked: 0
   - name: Tiles
     uniqueID: 296785727
+    locked: 0
+  - name: Overlay
+    uniqueID: 2636096317
+    locked: 0
+  - name: Path
+    uniqueID: 1519593587
+    locked: 0
+  - name: Characters2
+    uniqueID: 4275046889
     locked: 0
   - name: Characters
     uniqueID: 2624740133
     locked: 0
   - name: Cursor
-    uniqueID: 2636096317
+    uniqueID: 2005130981
     locked: 0
