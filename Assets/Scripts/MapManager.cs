@@ -13,12 +13,16 @@ public class MapManager : MonoBehaviour
     [SerializeField] private Tilemap overlayMap;
 
     [SerializeField] private Tile hoverTile;
+<<<<<<< HEAD
+    [SerializeField] private Tile playerTile;
+=======
     [SerializeField] private RuleTile pathTile;
     [SerializeField] private Tile allyOverlayMoveTile;
     [SerializeField] private Tile allyOverlayAttackTile;
     [SerializeField] private Tile enemyOverlayMoveTile;
     [SerializeField] private Tile enemyOverlayAttackTile;
 
+>>>>>>> main
 
     [Header("Tile Data")]
     [SerializeField] private List<TileData> tileDataList;
@@ -376,5 +380,10 @@ public class MapManager : MonoBehaviour
     {
         overlayMap.ClearAllTiles();
         pathMap.ClearAllTiles();
+    }
+
+    void addPlayer()
+    {
+
     }
 }
