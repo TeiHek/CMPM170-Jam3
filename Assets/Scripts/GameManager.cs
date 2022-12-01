@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            print("trying once again check");
+            //print("trying once again check");
             if (state == GameState.PlayerTurn)
             {
                 foreach (KeyValuePair<Vector3Int, BaseUnit> tileUnitPair in MapManager.GetAllyUnits())
@@ -87,9 +87,9 @@ public class GameManager : MonoBehaviour
                             totalUnitsWithAffinity++;
                         }
                     }
-                    print("Chance:" + unitsWithAffinity + "," + totalUnitsWithAffinity);
+                   // print("Chance:" + unitsWithAffinity + "," + totalUnitsWithAffinity);
                 }
-                print(((float)unitsWithAffinity / (float)totalUnitsWithAffinity) * maxOnceAgainChance);
+               // print(((float)unitsWithAffinity / (float)totalUnitsWithAffinity) * maxOnceAgainChance);
                 if (Random.Range(0f, 1f) < ((float)unitsWithAffinity / (float)totalUnitsWithAffinity) * maxOnceAgainChance)
                 {
                     newState = GameState.PlayerTurn;
@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
                             totalUnitsWithAffinity++;
                         }
                     }
-                    print("Chance:" + unitsWithAffinity + "," + totalUnitsWithAffinity);
+                    //print("Chance:" + unitsWithAffinity + "," + totalUnitsWithAffinity);
                 }
                 if (Random.Range(0f, 1f) < ((float)unitsWithAffinity / (float)totalUnitsWithAffinity) * maxOnceAgainChance)
                 {

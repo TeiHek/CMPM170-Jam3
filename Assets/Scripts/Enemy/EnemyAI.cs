@@ -12,18 +12,19 @@ public class EnemyAI : MonoBehaviour
 
     public GameObject _EventObject;
     private TaranEvent _TaranEvent;
-    
+
 
     [System.Serializable]
-    public struct Units{
+    public struct Units
+    {
         public GameObject gameObject;
-        [HideInInspector]public BaseUnit baseunit;
+        [HideInInspector] public BaseUnit baseunit;
     }
 
     public float movementFrequency;
 
-     public List<Units> EnemyList = new List<Units>();
-     public List<Units> AllyList = new List<Units>();
+    public List<Units> EnemyList = new List<Units>();
+    public List<Units> AllyList = new List<Units>();
 
     //helper variables for storing list data
     private GameObject EnemyUnits;
@@ -53,7 +54,7 @@ public class EnemyAI : MonoBehaviour
     // helper functions only called in function
 
     //this bool will determine if the all ai movement is complete
-    [HideInInspector]public bool isAIComplete = false;
+    [HideInInspector] public bool isAIComplete = false;
 
 
 
@@ -66,9 +67,10 @@ public class EnemyAI : MonoBehaviour
         isAIComplete = false;
 
         //rebuild the list to remove all inactive cases
-        buildList();
+        buildList_Enemy();
         for (int i = 0; i < EnemyList.Count; i++)
         {
+            buildList_Ally();
             UnitHeadToUnitAI(EnemyList[i].baseunit);
             yield return new WaitUntil(() => GameManager.Instance.state == GameState.EnemyTurn);
 
@@ -78,13 +80,17 @@ public class EnemyAI : MonoBehaviour
 
         yield return new WaitForSeconds(movementFrequency);
         isAIComplete = true;
-        GameManager.Instance.ProcessEndTurn();
+        if(AllyList.Count != 0)
+        {
+            GameManager.Instance.ProcessEndTurn();
+        }
+ 
     }
 
     public void AIProcess()
     {
         //run ai if it has Enemy
-        if(EnemyList.Count >= 0)
+        if (EnemyList.Count >= 0)
         {
             StartCoroutine(runAI());
         }
@@ -92,7 +98,7 @@ public class EnemyAI : MonoBehaviour
     }
 
 
-   
+
 
 
 
@@ -102,6 +108,10 @@ public class EnemyAI : MonoBehaviour
     {
         TargetList.Clear();
         BuildTarget();
+        if(TargetList.Count == 0)
+        {
+            return;
+        }
 
         List<Vector3Int> availablePath = new List<Vector3Int>();
 
@@ -118,7 +128,7 @@ public class EnemyAI : MonoBehaviour
         GameObject resultTarget;
 
 
-        for(int i = 0; i < TargetList.Count; i++)
+        for (int i = 0; i < TargetList.Count; i++)
         {
             for (int p = 0; p < TargetList[i].allAdjs.Count; p++)
             {
@@ -128,20 +138,20 @@ public class EnemyAI : MonoBehaviour
                 //check 3 things, if it's the closest ally unit
                 //if the tile has something on it
                 //if the path is valid
-                if (distance < distanceMin 
+                if (distance < distanceMin
                     && isTileHavingUnit(TargetList[i].allAdjs[p]) == false
                     && travelPath.Count > 1)
                 {
 
                     distanceMin = distance;
                     MinIndex = p;
-                    targetIndex =i;
+                    targetIndex = i;
                     resultTile = TargetList[i].allAdjs[p];
                     resultTarget = TargetList[i].allyUnit.gameObject;
                 }// distance check end
 
                 //it won't move if it's already close to target
-                if(travelPath.Count == 1)
+                if (travelPath.Count == 1)
                 {
                     distanceMin = distance;
                     MinIndex = p;
@@ -150,7 +160,7 @@ public class EnemyAI : MonoBehaviour
                     resultTarget = TargetList[i].allyUnit.gameObject;
                 }
 
-                
+
             }
         }
         MoveAttack(Unit, TargetList[targetIndex].allyUnit.baseunit, resultTile);
@@ -158,7 +168,7 @@ public class EnemyAI : MonoBehaviour
 
 
 
-    
+
     public void MoveAttack(BaseUnit attacker, BaseUnit target, Vector3Int resultTile)
     {
         int pathLength;
@@ -195,9 +205,9 @@ public class EnemyAI : MonoBehaviour
         List<Vector3Int> availablePath = new List<Vector3Int>();
         float distance = 0;
         float distanceMin = 999;
-        Vector3Int resultTile = Unit1.GetTile() ;   //avoid it jump to the black hole if invalid case happened
+        Vector3Int resultTile = Unit1.GetTile();   //avoid it jump to the black hole if invalid case happened
         int MinIndex = -1;
-      
+
 
         //test all adj's valiablity. note i = 0 is self tile, so starts from 1
         for (int i = 1; i < 5; i++)
@@ -205,7 +215,7 @@ public class EnemyAI : MonoBehaviour
             destination = getUnitAdjacentTiles(ToUnit2)[i];
 
             //test if tile is used before the path check
-            if(isTileHavingUnit(destination) == false)
+            if (isTileHavingUnit(destination) == false)
             {
                 //check if it's valid path
                 if (GameManager.Instance.PathFinder.FindPath(ToUnit2.GetTile(), destination, ToUnit2).Count > 0)
@@ -214,7 +224,7 @@ public class EnemyAI : MonoBehaviour
                     availablePath.Add(destination);
                     distance = Vector3Int.Distance(Unit1.GetTile(), destination);
                     //check closest tile as target tile
-                    if(distance < distanceMin)
+                    if (distance < distanceMin)
                     {
                         distanceMin = distance;
                         MinIndex = i;
@@ -235,14 +245,19 @@ public class EnemyAI : MonoBehaviour
     //------------------------------------------------------------------------------
     //------------------------------ Helper Functions ------------------------------
     //only be called in function
-
     void buildList()
     {
+        buildList_Enemy();
+        buildList_Ally();
+    }
+
+
+
+    //build eneny list before the battle starts
+    void buildList_Enemy()
+    {
         EnemyList.Clear();
-        AllyList.Clear();
-
         EnemyUnits = GameObject.Find("*Enemy/*Units");
-
         for (int i = 0; i < EnemyUnits.transform.childCount; i++)
         {
             if (EnemyUnits.transform.GetChild(i).gameObject.activeSelf)
@@ -253,9 +268,13 @@ public class EnemyAI : MonoBehaviour
                 tempUnit.baseunit = tempUnit.gameObject.GetComponent<EnemyUnit>();
                 EnemyList.Add(tempUnit);
             }
-
         }
+    }
 
+    //build ally list when the battle happened, so it will be dynamic if ally died
+    void buildList_Ally()
+    {
+        AllyList.Clear();
         AllyUnits = GameObject.Find("*Ally/*Units");
 
         for (int i = 0; i < AllyUnits.transform.childCount; i++)
@@ -267,12 +286,8 @@ public class EnemyAI : MonoBehaviour
                 tempUnit.baseunit = tempUnit.gameObject.GetComponent<ControllableUnit>();
                 AllyList.Add(tempUnit);
             }
-
         }
     }
-    
-
-
 
 
     [HideInInspector]
@@ -348,7 +363,7 @@ public class EnemyAI : MonoBehaviour
     //make unit head to the destination tile due to the movment range
     void UnitHeadToTile(BaseUnit unit, Vector3Int destination)
     {
-        
+
         // assignPath to temp variable
         tempPath = new List<Vector3Int>(GameManager.Instance.PathFinder.FindPath(unit.GetTile(), destination, unit));
         Vector3Int resultDestination = destination;
@@ -362,9 +377,9 @@ public class EnemyAI : MonoBehaviour
             else
             {
                 //find the moveable tiles
-                for(int i = 0; i < tempPath.Count; i++)
+                for (int i = 0; i < tempPath.Count; i++)
                 {
-                    if(tempPath.Count - 1 - i <= 0)
+                    if (tempPath.Count - 1 - i <= 0)
                     {
                         //don't move
                         MoveUnit(unit, unit.GetTile(), unit.GetTile());
@@ -386,7 +401,7 @@ public class EnemyAI : MonoBehaviour
         }
         else if (unit.moveRange <= tempPath.Count && unit.moveRange > 0)
         {
-            
+
             //des is bigger than range
             if (unit.moveRange == tempPath.Count)
             {
@@ -396,8 +411,9 @@ public class EnemyAI : MonoBehaviour
             {
                 destination = tempPath[unit.moveRange];
             }
-            
-            for(int i = 0; i < tempPath.Count; i++){
+
+            for (int i = 0; i < tempPath.Count; i++)
+            {
 
                 if (isTileHavingUnit(destination) == false)
                 {
@@ -414,7 +430,7 @@ public class EnemyAI : MonoBehaviour
                     destination = tempPath[unit.moveRange - 1 - i];
                 }
             }
-            
+
 
         }
         else if (unit.moveRange <= 0)

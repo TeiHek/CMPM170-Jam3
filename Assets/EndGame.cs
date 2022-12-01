@@ -15,11 +15,11 @@ public class EndGame : MonoBehaviour
     [SerializeField] GameObject fadingObject;
     [SerializeField] Animator anim;
 
-    [Header("Important Condition Settings")]
-    [Tooltip("When this is on, trigger end game scene when all ally died.")]
-    [SerializeField] bool ifAllAllyDied;
-    [Tooltip("When this is on, trigger end game scene when all Enemy died.")]
-    [SerializeField] bool ifAllEnemyDied;
+    //[Header("Important Condition Settings")]
+    //[Tooltip("When this is on, trigger end game scene when all ally died.")]
+    //[SerializeField] bool ifAllAllyDied;
+    //[Tooltip("When this is on, trigger end game scene when all Enemy died.")]
+    //[SerializeField] bool ifAllEnemyDied;
 
 
     int outputTime = 0;
@@ -37,13 +37,15 @@ public class EndGame : MonoBehaviour
     {
         
 
-        if(CheckCondition_Bad())
+        if(CheckCondition_Bad() && outputTime == 0)
         {
             badEndingEvent();
+            outputTime++;
         }
-        else if (CheckCondition_Good())
+        else if (CheckCondition_Good() && outputTime == 0)
         {
             goodEndingEvent();
+            outputTime++;
         }
 
 
@@ -60,7 +62,6 @@ public class EndGame : MonoBehaviour
             anim.Play("Fading");
 
             Debug.Log("bad ending");
-            outputTime++;
         }
     }
 
@@ -72,16 +73,13 @@ public class EndGame : MonoBehaviour
             anim.Play("Fading");
 
             Debug.Log("bad ending");
-            outputTime++;
         }
     }
 
     bool CheckCondition_Bad()
     {
-
         if(_AI.AllyList.Count == 0)
         {
-            Debug.Log("1");
             return true;
         }
         else
@@ -97,10 +95,8 @@ public class EndGame : MonoBehaviour
         {
             return true;
         }
-
         if (_AI.EnemyList.Count == 0)
         {
-            Debug.Log("2");
             return true;
         }
         else
