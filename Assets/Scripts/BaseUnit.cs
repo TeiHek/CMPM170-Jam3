@@ -11,6 +11,7 @@ public abstract class BaseUnit : MonoBehaviour
     public int maxAttackRange;
     public int attackDamage;
     public bool ableToAct;
+    public TileAffinity affinity;
 
     // Start is called before the first frame update
     public virtual void Start()
