@@ -6,10 +6,13 @@ using UnityEngine.Events;
 public class doubleclick : MonoBehaviour
 {
     public UnityEvent DoubleClick;
+    public Transform units;
     private float firstLeftClickTime;
     private float timeBetweenLeftClick = 0.5f;
     private bool isTimeCheckAllowed = true;
     private int leftClickNum = 0;
+    private bool ontheunit = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,8 +25,16 @@ public class doubleclick : MonoBehaviour
         if(Input.GetMouseButtonUp(1))
         {
             leftClickNum += 1;
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if(Physics.Raycast(ray, out hit)){
+                if(hit.transform.name == units.name){
+                    ontheunit = true;
+                }
+            }
         }
-        if(leftClickNum == 1 && isTimeCheckAllowed)
+        if(leftClickNum == 1 && isTimeCheckAllowed && ontheunit )
         {
             firstLeftClickTime = Time.time;
             StartCoroutine(DetectDoubleLeftClick());
@@ -47,7 +58,7 @@ public class doubleclick : MonoBehaviour
         isTimeCheckAllowed = true;
     }
 
-    void Click2(){
+    private void Click2(){
         DoubleClick.Invoke();
     }
 }
