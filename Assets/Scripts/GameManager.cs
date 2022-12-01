@@ -136,6 +136,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator EndTurn(GameState nextState)
     {
+        yield return new WaitForEndOfFrame();
         yield return StartCoroutine(UIMenuController.TurnFade(nextState, recentOnceAgain));
         state = nextState;
         if(nextState == GameState.PlayerTurn)
