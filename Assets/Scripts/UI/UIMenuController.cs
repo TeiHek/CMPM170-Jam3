@@ -13,6 +13,7 @@ public class UIMenuController : MonoBehaviour
     [Range(0f, 1f)] public float screenAlphaRate;
     private GameObject playerTurnText;
     private GameObject enemyTurnText;
+    private GameObject onceAgainText;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,7 @@ public class UIMenuController : MonoBehaviour
         // hardcoded but these are part of a prefab
         playerTurnText = turnFadeEffect.transform.GetChild(0).gameObject;
         enemyTurnText = turnFadeEffect.transform.GetChild(1).gameObject;
+        onceAgainText = turnFadeEffect.transform.GetChild(2).gameObject;
     }
 
     // Update is called once per frame
@@ -66,7 +68,7 @@ public class UIMenuController : MonoBehaviour
         cancelButton.SetActive(false);
         GameManager.Instance.UIOpen = false;
     }
-    public IEnumerator TurnFade(GameState state)
+    public IEnumerator TurnFade(GameState state, bool onceAgain)
     {
         if (state == GameState.PlayerTurn)
         {
@@ -78,6 +80,16 @@ public class UIMenuController : MonoBehaviour
             playerTurnText.SetActive(false);
             enemyTurnText?.SetActive(true);
         }
+
+        if(onceAgain)
+        {
+            onceAgainText.SetActive(true);
+        }
+        else
+        {
+            onceAgainText.SetActive(false);
+        }
+
         while (turnFadeEffect.GetComponent<CanvasGroup>().alpha < 0.999f)
         {
             turnFadeEffect.GetComponent<CanvasGroup>().alpha += screenAlphaRate * Time.deltaTime;

@@ -27,3 +27,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3b9165802a59a40439696da3a12dee86, type: 2}
   navigable: 1
   moveCost: 2
+  affinity: 2

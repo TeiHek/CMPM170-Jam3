@@ -97,7 +97,7 @@ public class InputController : MonoBehaviour
                 return;
             }
             // Actions if a unit is selected
-            if (selectedUnit != null && !GameManager.Instance.UIOpen)
+            else if (selectedUnit != null && !GameManager.Instance.UIOpen)
             {
                 // Click on another unit after first selection or tile unit cannot navigate to
                 if ( (GameManager.Instance.MapManager.IsUnit(pos) && GameManager.Instance.MapManager.GetUnitAt(pos) != GameManager.Instance.MapManager.GetSelectedUnit()) || 
@@ -115,7 +115,7 @@ public class InputController : MonoBehaviour
                 GameManager.Instance.UIMenuController.ShowActionButtons(pos, GameManager.Instance.MapManager.EnemyInAttackRange(pos, selectedUnit.GetMaxAttackRange(), selectedUnit.GetMaxAttackRange()));
             }
             // Check if allied unit and has not acted yet
-            if(GameManager.Instance.MapManager.IsAllyUnit(pos) && GameManager.Instance.MapManager.GetUnitAt(pos).ableToAct)
+            else if(GameManager.Instance.MapManager.IsAllyUnit(pos) && GameManager.Instance.MapManager.GetUnitAt(pos).ableToAct)
             {
                 //print("Selected");
                 GameManager.Instance.MapManager.SelectUnit(pos);

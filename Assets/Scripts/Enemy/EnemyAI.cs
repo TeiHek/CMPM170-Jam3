@@ -78,7 +78,7 @@ public class EnemyAI : MonoBehaviour
 
         yield return new WaitForSeconds(movementFrequency);
         isAIComplete = true;
-        yield return StartCoroutine(GameManager.Instance.EndTurn(GameState.PlayerTurn));
+        GameManager.Instance.ProcessEndTurn();
     }
 
     public void AIProcess()
