@@ -6,10 +6,12 @@ using UnityEngine.Events;
 public class doubleclick : MonoBehaviour
 {
     public UnityEvent DoubleClick;
+    //public Transform units;
     private float firstLeftClickTime;
     private float timeBetweenLeftClick = 0.5f;
     private bool isTimeCheckAllowed = true;
     private int leftClickNum = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +21,7 @@ public class doubleclick : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonUp(0))
+        if(Input.GetMouseButtonUp(1))
         {
             leftClickNum += 1;
         }
@@ -47,7 +49,7 @@ public class doubleclick : MonoBehaviour
         isTimeCheckAllowed = true;
     }
 
-    void Click2(){
+    private void Click2(){
         DoubleClick.Invoke();
     }
 }
