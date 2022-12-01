@@ -10,7 +10,6 @@ public class healthmanager : MonoBehaviour
     private float current_HP;
     private float MAX_HP ;
 
-    private int _scr;
     // Start is called before the first frame update
     GameObject ParentObj;
     BaseUnit ParentUnit;
