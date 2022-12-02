@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
                     recentOnceAgain = false;
                 }
             }
-            else if (state == GameState.EnemyTurn)
+            else
             {
                 foreach (KeyValuePair<Vector3Int, BaseUnit> tileUnitPair in MapManager.GetEnemyUnits())
                 {

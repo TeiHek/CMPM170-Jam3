@@ -60,7 +60,7 @@ public abstract class BaseUnit : MonoBehaviour
     public IEnumerator playAnim()
     {
         attack.Play();
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.5f);
         attack.Stop();
     }
 

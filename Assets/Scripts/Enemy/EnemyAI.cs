@@ -1,11 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
-using static UnityEngine.UI.CanvasScaler;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -90,7 +85,7 @@ public class EnemyAI : MonoBehaviour
         isAIComplete = true;
         if(AllyList.Count != 0)
         {
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(movementFrequency);
             GameManager.Instance.ProcessEndTurn();
         }
  
