@@ -6,50 +6,38 @@ using UnityEngine.Tilemaps;
 public class MapManager : MonoBehaviour
 {
     [Header("Map Data")]
-    public Grid grid;
     [SerializeField] private Tilemap worldMap;
     [SerializeField] private Tilemap interactiveMap;
-    [SerializeField] private Tilemap pathMap;
-    [SerializeField] private Tilemap overlayMap;
-
     [SerializeField] private Tile hoverTile;
+<<<<<<< HEAD
     [SerializeField] private RuleTile pathTile;
     [SerializeField] private Tile allyOverlayMoveTile;
     [SerializeField] private Tile allyOverlayAttackTile;
     [SerializeField] private Tile enemyOverlayMoveTile;
     [SerializeField] private Tile enemyOverlayAttackTile;
 
+=======
+    [SerializeField] private Tile playerTile;
+>>>>>>> parent of b61409d (merge paths)
 
     [Header("Tile Data")]
     [SerializeField] private List<TileData> tileDataList;
     private Dictionary<TileBase, TileData> tileData;
 
-    // Interactive Layer
-    private Vector3Int mouseGridPos = new Vector3Int();
     private Vector3Int prevMousePos = new Vector3Int();
-    private Vector3Int lastMousePosInBounds = new Vector3Int();
-
-    // Unit tracking
-    private Dictionary<Vector3Int, BaseUnit> allyUnits;
-    private Dictionary<Vector3Int, BaseUnit> enemyUnits;
-    private BaseUnit selectedUnit;
-    private Vector3Int selectedUnitPos;
-    private Vector3Int targetTile;
 
     // Start is called before the first frame update
     void Start()
     {
-        selectedUnit = null;
+
     }
 
     private void Awake()
     {
-        allyUnits = new Dictionary<Vector3Int, BaseUnit>();
-        enemyUnits = new Dictionary<Vector3Int, BaseUnit>();
         tileData = new Dictionary<TileBase, TileData>();
         foreach(TileData TD in tileDataList)
         {
-            foreach(TileBase tile in TD.tiles)
+            foreach(Tile tile in TD.tiles)
             {
                 tileData.Add(tile, TD);
             }
@@ -59,48 +47,30 @@ public class MapManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        mouseGridPos = GetMousePosition();
-        
-        if (worldMap.HasTile(mouseGridPos))
+        Vector3Int mouseGridPos = GetMousePosition();
+        if(!mouseGridPos.Equals(prevMousePos))
         {
-            if (!mouseGridPos.Equals(prevMousePos) && !GameManager.Instance.UIOpen && !GameManager.Instance.listeningForTarget)
-            {
-                interactiveMap.SetTile(prevMousePos, null);
-                interactiveMap.SetTile(mouseGridPos, hoverTile);
-                prevMousePos = mouseGridPos;
-                lastMousePosInBounds = mouseGridPos;
-                pathMap.ClearAllTiles();
-                if ( (overlayMap.ContainsTile(allyOverlayMoveTile) || overlayMap.ContainsTile(enemyOverlayMoveTile)) && selectedUnit == null)
-                {
-                    overlayMap.ClearAllTiles();
-                    pathMap.ClearAllTiles();
-                }
-                if (!GameManager.Instance.UIOpen && selectedUnit == null)
-                {
-                    ShowMoveAttackRange(mouseGridPos);
-                }
-                if (selectedUnit != null)
-                {
-                    List<Vector3Int> path = GameManager.Instance.PathFinder.FindPath(selectedUnitPos, mouseGridPos, selectedUnit);
-                    foreach (Vector3Int step in path)
-                    {
-                        pathMap.SetTile(step, pathTile);
-                    }
-                }
-            }
+            interactiveMap.SetTile(prevMousePos, null);
+            interactiveMap.SetTile(mouseGridPos, hoverTile);
+            prevMousePos = mouseGridPos;
         }
-        else
+
+        // Test block
+        if (Input.GetMouseButtonDown(0))
         {
-            interactiveMap.SetTile(lastMousePosInBounds, null);
+            TileBase clickedTile = worldMap.GetTile(mouseGridPos);
+            print("Position" + mouseGridPos + ", Move Cost:" + tileData[clickedTile].moveCost);
         }
+
     }
 
-    public Vector3Int GetMousePosition()
+    Vector3Int GetMousePosition()
     {
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         return worldMap.WorldToCell(mouseWorldPosition);
     }
 
+<<<<<<< HEAD
     public bool IsInBounds(Vector3Int pos)
     {
         return worldMap.HasTile(pos);
@@ -376,5 +346,10 @@ public class MapManager : MonoBehaviour
     {
         overlayMap.ClearAllTiles();
         pathMap.ClearAllTiles();
+=======
+    void addPlayer()
+    {
+
+>>>>>>> parent of b61409d (merge paths)
     }
 }
