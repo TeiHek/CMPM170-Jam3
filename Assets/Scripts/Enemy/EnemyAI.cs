@@ -67,7 +67,7 @@ public class EnemyAI : MonoBehaviour
     //  wait second will be used for pause
     IEnumerator runAI()
     {
-
+        yield return new WaitForEndOfFrame();
         isAIComplete = false;
 
         //rebuild the list to remove all inactive cases
@@ -90,6 +90,7 @@ public class EnemyAI : MonoBehaviour
         isAIComplete = true;
         if(AllyList.Count != 0)
         {
+            yield return new WaitForEndOfFrame();
             GameManager.Instance.ProcessEndTurn();
         }
  

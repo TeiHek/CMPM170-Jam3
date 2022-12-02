@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                newState = GameState.EnemyTurn;
+                newState = GameState.PlayerTurn;
             }
             recentOnceAgain = false;
         }
@@ -121,6 +121,7 @@ public class GameManager : MonoBehaviour
                 }
                 if (Random.Range(0f, 1f) < ((float)unitsWithAffinity / (float)totalUnitsWithAffinity) * maxOnceAgainChance)
                 {
+                    print("enemy again");
                     newState = GameState.EnemyTurn;
                     recentOnceAgain = true;
                 }
@@ -136,6 +137,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator EndTurn(GameState nextState)
     {
+        yield return new WaitForEndOfFrame();
         yield return StartCoroutine(UIMenuController.TurnFade(nextState, recentOnceAgain));
         state = nextState;
         if(nextState == GameState.PlayerTurn)
