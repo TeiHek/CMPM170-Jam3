@@ -62,3 +62,6 @@ TagManager:
   - name: Cursor
     uniqueID: 2005130981
     locked: 0
+  - name: VFX
+    uniqueID: 3851511739
+    locked: 0

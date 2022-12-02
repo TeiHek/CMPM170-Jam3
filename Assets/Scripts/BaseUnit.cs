@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 using static EnemyAI;
 
 public abstract class BaseUnit : MonoBehaviour
@@ -19,6 +20,9 @@ public abstract class BaseUnit : MonoBehaviour
     public int attackDamage;
     public bool ableToAct;
     public TileAffinity affinity;
+    public VisualEffect damage;
+    public VisualEffect attack;
+    public bool isStream;
 
 
 
@@ -53,6 +57,13 @@ public abstract class BaseUnit : MonoBehaviour
         return maxAttackRange;
     }
 
+    public IEnumerator playAnim()
+    {
+        attack.Play();
+        yield return new WaitForSeconds(0.25f);
+        attack.Stop();
+    }
+
     public IEnumerator MovePosition(List<Vector3Int> path)
     {
         // 4 is a hardcoded value for this but the movement speed for this is acceptable but should not change between units
@@ -85,21 +96,32 @@ public abstract class BaseUnit : MonoBehaviour
         Vector3 returnPos = transform.position;
         List<Vector3> path = new List<Vector3> { transform.position + targetPos, returnPos };
         bool attackApplied = false;
-        while (path.Count > 0)
+        if (isStream)
         {
-            transform.position = Vector2.MoveTowards(transform.position, path[0], step);
+            StartCoroutine(playAnim());
+            target.ReceiveDamage(attackDamage);
+            target.damage.Play();
+        }
+        else
+        {
+            while (path.Count > 0)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, path[0], step);
 
-            if (Vector2.Distance(transform.position, path[0]) < 0.0001f)
-            {
-                path.RemoveAt(0);
+                if (Vector2.Distance(transform.position, path[0]) < 0.0001f)
+                {
+                    path.RemoveAt(0);
+                }
+                // jank solution but apply damage when unit is closest to targetPos, or when path length is 1
+                if (!attackApplied && path.Count == 1)
+                {
+                    attackApplied = true;
+                    attack.Play();
+                    target.damage.Play();
+                    target.ReceiveDamage(attackDamage);
+                }
+                yield return null;
             }
-            // jank solution but apply damage when unit is closest to targetPos, or when path length is 1
-            if(!attackApplied && path.Count == 1)
-            {
-                attackApplied = true;
-                target.ReceiveDamage(attackDamage);
-            }
-            yield return null;
         }
     }
 
